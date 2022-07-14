@@ -1,0 +1,31 @@
+{
+  "name": "prm",
+  "version": "1.0.1",
+  "description": "A digital platform for recording and storing police records.",
+  "main": "main.js",
+  "keywords": [],
+  "homepage": "https://github.com/Ed-Isingoma/prm",
+  "author": "Ntonde Edgar Isingoma <eddiisingoma@gmail.com>",
+  "license": "ISC",
+  "scripts": {
+    "start": "electron .",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder"
+  },
+  "devDependencies": {
+    "electron": "^18.3.1",
+    "electron-builder": "^23.0.3"
+  },
+  "build": {
+    "target": "nsis, deb",
+    "appId": "com.electron.prm",
+    "copyright": "Copyright (c) 2022 Ntonde Edgar Isingoma.",
+    "win": {
+      "target": "nsis"
+    },
+    "linux": {
+      "target": "deb",
+      "maintainer": "Edgar Isingoma"
+    }
+  }
+}
