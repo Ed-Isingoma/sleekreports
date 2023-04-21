@@ -2,7 +2,7 @@
   "name": "prm",
   "version": "1.0.1",
   "description": "A digital platform for recording and storing police records.",
-  "main": "main.js",
+  "main": "reportMain.js",
   "keywords": [],
   "homepage": "https://github.com/Ed-Isingoma/prm",
   "author": "Ntonde Edgar Isingoma <eddiisingoma@gmail.com>",

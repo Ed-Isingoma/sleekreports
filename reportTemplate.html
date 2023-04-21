@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Report Template</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            word-break: break-word;
+        }
+        button, .header, .section, .footer {
+            user-select: none;
+        }
+        *:focus {
+            outline: 3px solid rgb(0, 255, 128);
+        }
+        .reportPage {
+            height: 330mm;
+            width: 215mm;
+            background-color: honeydew;
+            color: black;
+            font-family: "Calibri", serif;
+            font-size: 17px;
+            text-align: center;
+            border: 3px bold rebeccapurple;/*this one has refused*/
+        }
+        .header {
+            font-weight: bolder;
+            width: 160mm;
+            max-height: 2.5cm;
+            display: inline-block;
+        }
+        .firstLine {
+            font-size: 22px;
+        }
+        .blackLine {
+            height: 3px;
+            width: 100%;
+            background-color: black;
+            margin-bottom: 3px;
+        }
+        .reportIntros, .reportOutros {
+            font-weight: bold;
+            width: 160mm;
+            display: inline-block;
+        }
+        #notif {
+            text-align: left;
+            font-style: italic;
+        }
+        .inlineB {
+            display: inline-block;
+        }
+        .addName {
+            width: 60%;
+        }
+        .addClass, .addGender {
+            width: 20%;
+            height: 15px;
+        }
+        .theirName, .theirClass, .gender {
+            width: 15%;
+        }
+        div {/*this one goes out after production*/
+            border: 1px solid grey;
+        }
+        .realReport {
+            width: 160mm;
+        }
+        .leftmost {
+            width: 20%;
+            height: 70px;
+        }
+        .leftmid {
+            width: 25%;
+            height: 70px;
+        }
+        .rightmid {
+            width: 41%;
+            height: 70px;
+        }
+        .rightmost {
+            width: 14%;
+            height: 70px;
+        }
+        .clearFloat {
+            clear: both;
+        }
+        .leftmost, .leftmid, .rightmid, .rightmost {
+            float: left;
+        }
+        .forHeading {
+            max-height: 20px;
+            overflow: hidden;
+        }
+        .subtbl1, .subtbl2 {
+            height: 35px;
+        }
+        .reportOutros {
+            text-align: left;
+            padding-left: 3px;
+        }
+        .trWords {
+            display: inline-block;
+            background-color: orange;
+            width: 20px;
+            height: 20px;
+        }
+        .signn {
+            width: 100px;
+            display: block;
+        }
+        #theSign {/*we have a small problem here*/
+            display: inline;
+            width: 40px;
+        }
+        #classTr {
+            display: inline-block;
+        }
+        .populator {
+            display: none;
+        }
+    </style>
+</head>
+<body class="reportPage">
+    <div class="header">
+        <div class="firstLine">
+            PROGRESSIVE SECONDARY SCHOOL KASANA-LUWEERO
+        </div>
+        <div class="secLine">
+            progsskl@gmail.com</br>TEL: 0774205590, 0701433027, 0776455080, 0778236023
+        </div>
+        <div class="blackLine"></div>
+        <div class="blackLine"></div>
+    </div>
+    <div class="reportIntros">
+        <div class="reportWord">
+            END OF TERM ONE 2023 REPORT CARD
+        </div>
+        <div class="theirName">
+            NAME:
+        </div><div class="addName inlineB"></div>
+        <div class="theirClass">
+            CLASS:
+        </div><div class="addClass inlineB"></div>
+        <div class="gender inlineB">
+            GENDER:
+        </div><div class="addGender inlineB"></div>
+        <div id="notif">
+            Please note that this new report card format has been adapted to the New Curriculum guidelines from the Ministry of Education.
+        </div>
+    </div>
+    <div class="realReport inlineB">
+        <div class="forHeading">
+            <div class="leftmost">SUBJECT</div>
+            <div class="leftmid">TOPIC</div>
+            <div class="rightmid">LEARNER'S ACHIEVEMENT</div>
+            <div class="rightmost">TR NAME</div>
+            <div class="clearFloat"></div>
+        </div>
+        <div class="forSubj">
+            <div class="subjName leftmost"></div>
+            <div class="subjTopics leftmid">
+                <div class="subtbl1"></div>
+                <div class="subtbl2"></div>
+            </div>
+            <div class="resultsNow rightmid">
+                <div class="subtbl1"></div>
+                <div class="subtbl2"></div>
+            </div>
+            <div class="trsInits rightmost"></div>
+        </div>
+    </div>
+    <div class="reportOutros">
+        <div class="nxtTerm">
+            Next term begins on: 22nd May, 2023
+        </div>
+        <div id="classTr">
+            Class Teacher's Comments:
+        </div>
+        <div class="trWords"></div>
+        <div class="signn">
+            Signature:
+        </div>
+        <div id="theSign">
+            ##
+        </div>
+        <div class="teller"></div>
+        <button class="populator" onclick="populate()">Populator</button>
+    </div>
+    <script src="reportRenderer.js"></script>
+    <script>
+        const ev = new MouseEvent("click")
+        document.querySelector('.populator').dispatchEvent(ev)
+    </script>
+</body>
+</html>
