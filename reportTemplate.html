@@ -28,7 +28,7 @@
         }
         .header {
             font-weight: bolder;
-            width: 160mm;
+            width: 190mm;
             max-height: 2.5cm;
             display: inline-block;
         }
@@ -43,7 +43,7 @@
         }
         .reportIntros, .reportOutros {
             font-weight: bold;
-            width: 160mm;
+            width: 190mm;
             display: inline-block;
         }
         #notif {
@@ -67,7 +67,7 @@
             border: 1px solid grey;
         }
         .realReport {
-            width: 160mm;
+            width: 190mm;
         }
         .leftmost {
             width: 20%;
@@ -98,6 +98,9 @@
         .subtbl1, .subtbl2 {
             height: 35px;
         }
+        .forSubj {
+            display: none;
+        }
         .reportOutros {
             text-align: left;
             padding-left: 3px;
@@ -122,78 +125,160 @@
         .populator {
             display: none;
         }
+        .person1 {
+            page-break-after: always;
+        }
     </style>
 </head>
 <body class="reportPage">
-    <div class="header">
-        <div class="firstLine">
-            PROGRESSIVE SECONDARY SCHOOL KASANA-LUWEERO
-        </div>
-        <div class="secLine">
-            progsskl@gmail.com</br>TEL: 0774205590, 0701433027, 0776455080, 0778236023
-        </div>
-        <div class="blackLine"></div>
-        <div class="blackLine"></div>
-    </div>
-    <div class="reportIntros">
-        <div class="reportWord">
-            END OF TERM ONE 2023 REPORT CARD
-        </div>
-        <div class="theirName">
-            NAME:
-        </div><div class="addName inlineB"></div>
-        <div class="theirClass">
-            CLASS:
-        </div><div class="addClass inlineB"></div>
-        <div class="gender inlineB">
-            GENDER:
-        </div><div class="addGender inlineB"></div>
-        <div id="notif">
-            Please note that this new report card format has been adapted to the New Curriculum guidelines from the Ministry of Education.
-        </div>
-    </div>
-    <div class="realReport inlineB">
-        <div class="forHeading">
-            <div class="leftmost">SUBJECT</div>
-            <div class="leftmid">TOPIC</div>
-            <div class="rightmid">LEARNER'S ACHIEVEMENT</div>
-            <div class="rightmost">TR NAME</div>
-            <div class="clearFloat"></div>
-        </div>
-        <div class="forSubj">
-            <div class="subjName leftmost"></div>
-            <div class="subjTopics leftmid">
-                <div class="subtbl1"></div>
-                <div class="subtbl2"></div>
+    <div class="person1">
+        <div class="header">
+            <div class="firstLine">
+                PROGRESSIVE SECONDARY SCHOOL KASANA-LUWEERO
             </div>
-            <div class="resultsNow rightmid">
-                <div class="subtbl1"></div>
-                <div class="subtbl2"></div>
+            <div class="secLine">
+                progsskl@gmail.com</br>TEL: 0774205590, 0701433027, 0776455080, 0778236023
             </div>
-            <div class="trsInits rightmost"></div>
+            <div class="blackLine"></div>
+            <div class="blackLine"></div>
         </div>
+        <div class="reportIntros">
+            <div class="reportWord">
+                END OF TERM ONE 2023 REPORT CARD
+            </div>
+            <div class="theirName">
+                NAME:
+            </div><div class="addName inlineB"></div>
+            <div class="theirClass">
+                CLASS:
+            </div><div class="addClass inlineB"></div>
+            <div class="gender inlineB">
+                GENDER:
+            </div><div class="addGender inlineB"></div>
+            <div id="notif">
+                Please note that this new report card format has been adapted to the New Curriculum guidelines from the Ministry of Education.
+            </div>
+        </div>
+        <div class="realReport inlineB">
+            <div class="forHeading">
+                <div class="leftmost">SUBJECT</div>
+                <div class="leftmid">TOPIC</div>
+                <div class="rightmid">LEARNER'S ACHIEVEMENT</div>
+                <div class="rightmost">TR NAME</div>
+                <div class="clearFloat"></div>
+            </div>
+            <div class="forSubj">
+                <div class="subjName leftmost"></div>
+                <div class="subjTopics leftmid">
+                    <div class="subtbl1"></div>
+                    <div class="subtbl2"></div>
+                </div>
+                <div class="resultsNow rightmid">
+                    <div class="subtbl1"></div>
+                    <div class="subtbl2"></div>
+                </div>
+                <div class="trsInits rightmost"></div>
+            </div>
+        </div>
+        <div class="reportOutros">
+            <div class="nxtTerm">
+                Next term begins on: 22nd May, 2023
+            </div>
+            <div id="classTr">
+                Class Teacher's Comments:
+            </div>
+            <div class="trWords"></div>
+            <div class="signn">
+                Signature:
+            </div>
+            <div id="theSign">
+                ##
+            </div>
+            <div class="teller"></div>
+            <button class="populator" onclick="populate()">Populator</button>
+        </div>
+
+
+        
+        <script>
+            const ipcRenderer = window.theDataPath.renderer
+            const strungArr = ipcRenderer.sendSync('bringArr')
+            //const bodyWrdsArrs = JSON.parse(strungArr)
+            //console.log('strungArr: ', strungArr)
+            //console.log('one ', bodyWrdsArrs[0], bodyWrdsArrs.slice(1))
+            const accessStuff = strungArr.split('endOut')
+            const bodyWrdsArrs= []
+            //console.log('accessStuff: ', accessStuff)
+            //accessStuff.forEach(e=>{
+            //    bodyWrdsArrs.push(e.split('endIn'))
+            //})
+            const accessDataA = accessStuff.shift().split('endIn')
+            const accessDataB = []
+            accessStuff.forEach(el=>{
+                accessDataB.push(el.split('endIn'))
+            })
+            //console.log('accessA: ', accessDataA, ' accessOther: ', accessDataB) 
+            function populate() {
+                for (let i=1; i<accessDataB.length; i++) {
+                    const repClone = document.querySelector('.person1').cloneNode(true)
+                    document.querySelector('body').appendChild(repClone)
+                }
+                //this code gives names, classes n genders. will also work for old curriculum
+                //accessDataA.shift() //removing studentIDs
+                const reportIntros = ['addName', 'addClass', 'addGender']
+                for (let r=0;r<reportIntros.length;r++) {
+                    for (let i=1; i<=accessDataB.length; i++) {
+                        const scoop = accessDataB[i-1].shift()
+                        const theTarget = document.querySelector(`body>div:nth-of-type(${i})`).querySelector(`.${reportIntros[r]}`)
+                        theTarget.innerHTML = scoop
+                    }
+                    accessDataA.shift()
+                }
+                const subjList = [
+                    ['ENGLISH', 'topic 1', 'topic 2'],
+                    ['PHYSICS', 'topic 1', 'topic 2'],
+                    ['HISTORY', 'topic 1', 'topic 2'],
+                    ['GEOGRAPHY', 'topic 1', 'topic 2'],
+                    ['BIOLOGY', 'topic 1', 'topic 2'],
+                    ['MATHEMATICS', 'topic 1', 'topic 2'],
+                    ['CHEMISTRY', 'topic 1', 'topic 2'],
+                    ['PHYSICAL EDUCATION', 'topic 1', 'topic 2']
+                ]
+                for (let r=1;r<=accessDataB.length;r++) {
+                    const aForSubj = document.querySelector(`body>div:nth-of-type(${r})`).querySelector('.forSubj')
+                    for (let c=0;c<subjList.length;c++){
+                        const rowClone = aForSubj.cloneNode(true)
+                        rowClone.querySelector('.subjName').innerHTML = subjList[c][0]
+                        rowClone.querySelector('.subjTopics .subtbl1').innerHTML = subjList[c][1]
+                        rowClone.querySelector('.subjTopics .subtbl2').innerHTML = subjList[c][2]
+                        //convert them into numbers before you shift them to sentences, then use the num additions to create teachers comment
+                        //rowClone.querySelector('.resultsNow .subtbl1').innerHTML = subjList[c][0]
+                        //rowClone.querySelector('.resultsNow .subtbl2').innerHTML = subjList[c][0]
+                        rowClone.style.display = 'block'
+                        //then we go to the optionals, and... we're done!
+                        document.querySelector(`body>div:nth-of-type(${r})`).querySelector('.realReport').appendChild(rowClone) 
+                    }
+                }
+                nwReallyPrint()
+            }
+            const ev = new MouseEvent("click")
+            document.querySelector('.populator').dispatchEvent(ev)
+            function nwReallyPrint() {
+                const dateArr = Date().toString().split(' ')
+                    dateArr.splice(-4, 4)
+                    let filename = ''
+                    for (let i=0; i<dateArr.length;i++) {
+                        filename+=dateArr[i]
+                    }
+                    ipcRenderer.send('doneLoading', filename)
+            }
+            //the UI teller
+            document.querySelector('.teller').addEventListener('printed', ()=> {
+                document.querySelector('.teller').innerHTML = 'Printed successfully to ' + document.querySelector('.teller').dataset.message
+                document.querySelector('.teller').style.display = 'flex'
+                setTimeout(()=> {document.querySelector('.teller').style.display = 'none'}, 3000)
+            })
+        </script>
     </div>
-    <div class="reportOutros">
-        <div class="nxtTerm">
-            Next term begins on: 22nd May, 2023
-        </div>
-        <div id="classTr">
-            Class Teacher's Comments:
-        </div>
-        <div class="trWords"></div>
-        <div class="signn">
-            Signature:
-        </div>
-        <div id="theSign">
-            ##
-        </div>
-        <div class="teller"></div>
-        <button class="populator" onclick="populate()">Populator</button>
-    </div>
-    <script src="reportRenderer.js"></script>
-    <script>
-        const ev = new MouseEvent("click")
-        document.querySelector('.populator').dispatchEvent(ev)
-    </script>
 </body>
 </html>

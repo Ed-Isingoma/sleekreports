@@ -70,7 +70,7 @@ ipcMain.on('doneLoading', (e, filename)=> {
 
 ipcMain.on('bringArr', (e, arg)=> {
     e.returnValue = strungArr
-})
+}) //the renderer script is loaded afresh, so we have to use this method to pass data to new browserwindow.
 //now the contextmenus
 ipcMain.on('miniMenu', (e, id)=>{
     const template = [{

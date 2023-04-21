@@ -2,11 +2,6 @@ const ipcRenderer = window.theDataPath.renderer
 const fs = window.theDataPath.fs
 const dataPath = ipcRenderer.sendSync('bringLink', '')
 
-/*function getPrinting() {
-    //add criteria here of which records to print
-    printeryBe()
-}*/
-let accessData;
 function printeryBe() {
     const headWrds = document.querySelectorAll('table:nth-of-type(1) > tbody>tr>td')
     const headWrdsArr = [] //contains each of the divs going to printery
@@ -17,7 +12,7 @@ function printeryBe() {
          newHeadWrds.push(e.replace('<font style=\"FONT-SIZE:11pt\" face=\"Calibri\" color=\"#a89d7f\">', '').replace('</font>', ''))
     })
     const bodyWrds = document.querySelectorAll('table:nth-of-type(2)>tbody>tr')
-    bodyWrdsArrs = []
+    const bodyWrdsArrs = []
     for (let i=0; i<bodyWrds.length; i++) {
         const tempNode = bodyWrds[i].querySelectorAll('td')
         const tempArr = []
@@ -26,38 +21,71 @@ function printeryBe() {
         bodyWrdsArrs.push(tempArr)
     }
     bodyWrdsArrs.unshift(newHeadWrds)
-    accessData = bodyWrdsArrs
-    //console.log(bodyWrdsArrs)
+    //console.log('here: ', newHeadWrds, bodyWrdsArrs)
+    //newHeadWrds.forEach(i=>{accessDataA.push(i)})
+    //bodyWrdsArrs.forEach(i=>{accessDataB.push(i)})
+    //console.log('bodyWrds: ', bodyWrdsArrs)
+    let freshArr = []
+    for (let i=0;i<bodyWrdsArrs.length;i++) {
+        freshArr.push(bodyWrdsArrs[i].join('endIn'))
+    }
+    //console.log('freshArr: ', freshArr)
+    const newDataSet = freshArr.join('endOut')
+    //console.log('longerStr', newDataSet)
     //let transitArr = JSON.stringify(bodyWrdsArrs)
     //let transitPg = document.createElement('a')
     //transitPg.href = './reportTemplate.html'
-    ipcRenderer.send('printThis')
+    ipcRenderer.send('printThis', newDataSet)
 }
-function populate() {
-    console.log('Done populating!')
-    nwReallyPrint()
-}
-function nwReallyPrint() {
-    const dateArr = Date().toString().split(' ')
-        dateArr.splice(-4, 4)
-        let filename = ''
-        for (let i=0; i<dateArr.length;i++) {
-            filename+=dateArr[i]
-        }
-        ipcRenderer.send('doneLoading', filename)
-}
-//the UI teller
-document.querySelector('.teller').addEventListener('printed', ()=> {
-    document.querySelector('.teller').innerHTML = 'Printed successfully to ' + document.querySelector('.teller').dataset.message
-    document.querySelector('.teller').style.display = 'flex'
-    setTimeout(()=> {document.querySelector('.teller').style.display = 'none'}, 3000)
-})
 function exitWork(){
     const theA = document.createElement('a')
     theA.href = "logoff.html"
     const ev = new MouseEvent('click')
     theA.dispatchEvent(ev)
 }
+/*function populate() {
+    console.log(accessDataA, accessDataB)
+    for (let i=1; i<accessDataB.length; i++) {
+        const repClone = document.querySelector('.person1').cloneNode(true)
+        document.querySelector('body').appendChild(repClone)
+    }
+    //this code gives names, classes n genders. will also work for old curriculum
+    const reportIntros = ['addName', 'addClass', 'addGender']
+    for (let r=0;r<reportIntros.length;r++) {
+        for (let i=1; i<=accessDataB.length; i++) {
+            const scoop = accessDataB[i].shift()
+            const theTarget = document.querySelector(`body>div:nth-of-type(${i})`).querySelector(`.${reportIntros[r]}`)
+            theTarget.innerHTML = scoop
+        }
+        accessDataA.shift()
+    }
+    const subjList = [
+        ['ENGLISH', 'topic 1', 'topic 2'],
+        ['PHYSICS', 'topic 1', 'topic 2'],
+        ['HISTORY', 'topic 1', 'topic 2'],
+        ['GEOGRAPHY', 'topic 1', 'topic 2'],
+        ['BIOLOGY', 'topic 1', 'topic 2'],
+        ['MATHEMATICS', 'topic 1', 'topic 2'],
+        ['CHEMISTRY', 'topic 1', 'topic 2'],
+        ['PHYSICAL EDUCATION', 'topic 1', 'topic 2']
+    ]
+    for (let r=1;r<=accessDataB.length;r++) {
+        const aForSubj = document.querySelector(`body>div:nth-of-type(${r})`).querySelector('.forSubj')
+        for (let c=0;c<subjList.length;c++){
+            const rowClone = aForSubj.cloneNode(true)
+            rowClone.querySelector('.subjName').innerHTML = subjList[c][0]
+            rowClone.querySelector('.subjTopics .subtbl1').innerHTML = subjList[c][1]
+            rowClone.querySelector('.subjTopics .subtbl2').innerHTML = subjList[c][2]
+            //convert them into numbers before you shift them to sentences, then use the num additions to create teachers comment
+            //rowClone.querySelector('.resultsNow .subtbl1').innerHTML = subjList[c][0]
+            //rowClone.querySelector('.resultsNow .subtbl2').innerHTML = subjList[c][0]
+            rowClone.style.display = 'inline-block'
+            //then we go to the optionals, and... we're done!
+            document.querySelector(`body>div:nth-of-type(${r})`).querySelector('.realReport').appendChild(rowClone) 
+        }
+    }
+    nwReallyPrint()
+}*/
 /*let searchArr;//this is the samplespace for when searching
 let delID; //this is the id of the settimeout for undoing a deleted entry
 document.querySelector('.table2').addEventListener('altColE', ()=> {altCol()})
