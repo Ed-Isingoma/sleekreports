@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            word-break: break-word;
+        }
+        button, .header, .section, .footer {
+            user-select: none;
+        }
+        *:focus {
+            outline: 3px solid rgb(0, 255, 128);
+        }
+        .reportPage {
+            height: 330mm;
+            width: 215mm;
+            /*background-color: honeydew;*/
+            color: black;
+            font-family: "Calibri", serif;
+            font-size: 17px;
+            text-align: center;
+        }
+        .header {
+            font-weight: bolder;
+            width: 190mm;
+            max-height: 2.5cm;
+            display: inline-block;
+        }
+        .schLogo {
+            display: block;
+            width: 65px;
+            float: left;
+        }
+        .holdTitl {
+            float: left;
+        }
+        .firstLine {
+            font-size: 24px;
+        }
+        .blackLine {
+            height: 3px;
+            width: 100%;
+            margin-bottom: 2px;
+            border-top: 3px solid black;
+        }
+        .reportIntros, .reportOutros {
+            font-weight: bold;
+            width: 190mm;
+            display: inline-block;
+        }
+        .reportIntros > div:not(:first-of-type) {
+            display: inline-block;
+        }
+
+        .clearFloat {
+            clear: both;
+        }
+        .addName {
+            width: 83%;
+            text-align: left;
+        }
+        .addClass, .addGender {
+            width: 34%;
+            height: 15px;
+            text-align: left;
+        }
+        .theirName, .theirClass, .gender {
+            width: 15%;
+            text-align: left;
+        }
+        .realReport {
+            width: 50%;
+            display: inline-block;
+            text-align: center;
+            border: 1px solid rgb(58, 58, 58);
+        }
+        .subjHead {
+            width: 33.3%;
+            float: left;
+        }
+        .staticTbl {
+            border: 1px solid rgb(59, 59, 59);
+            display: flex;
+            margin: auto;
+            max-width: 66%;
+            flex-direction: row;
+        }
+        /*.staticTbl .staticCell {
+            width: 100%;
+        }*/
+        .staticTbl>div>div, .realReport >div>div {
+            border: 1px solid rgb(59, 59, 59);
+            padding-left: 5px;
+            padding-right: 5px;
+        }
+        .innerCol {
+            height: 100%;
+        }
+        .reportOutros {
+            text-align: left;
+            padding-left: 3px;
+        }
+        .theSign {
+            width: 80px;
+            display: inline-block;
+            margin-top: 0;
+        }
+        .populator {
+            display: none;
+        }
+        .person1 {
+            page-break-after: always;
+        }
+        .sigHm {
+            width: 50px;
+            display: inline;
+            margin-top: 2px;
+            vertical-align: bottom;
+        }
+    </style>
+</head>
+<body class="reportPage">
+    <div class="person1">
+        <div class="header">
+            <img src="logoProgie.jpg" class="schLogo">
+            <div class="holdTitl">
+                <div class="firstLine">
+                    PROGRESSIVE SECONDARY SCHOOL KASANA-LUWEERO
+                </div>
+                <div class="secLine">
+                    progsskl@gmail.com</br>TEL: 0774205590, 0701433027, 0776455080, 0778236023
+                </div>
+            </div>
+            <div class="clearFloat"></div>
+            <div class="blackLine"></div>
+            <div class="blackLine"></div>
+        </div>
+        <div class="reportIntros">
+            <div class="reportWord">
+                END OF TERM ONE 2023 REPORT CARD
+            </div>
+            <div class="theirName">
+                NAME:
+            </div><div class="addName"></div>
+            <div class="theirClass">
+                CLASS:
+            </div><div class="addClass"></div>
+            <div class="gender">
+                GENDER:
+            </div><div class="addGender"></div>
+        </div>
+        <div class="realReport">
+            <div class="subjRow">
+                <div class="subjHead">Subject</div>
+                <div class="subjHead">Score</div>
+                <div class="subjHead">Grade</div>
+                <div class="clearFloat"></div>
+            </div>
+        </div>
+        <div class="staticTbl">
+            <div class="innerCol">
+                <div class="staticCell">
+                    Score
+                </div>
+                <div class="staticCell">
+                    Grading
+                </div>
+            </div>
+            <div class="innerCol">
+                <div class="staticCell">
+                    80-100
+                </div>
+                <div class="staticCell">
+                    D1
+                </div>
+            </div>
+            <div class="innerCol">
+                <div class="staticCell">
+                    70-79
+                </div>
+                <div class="staticCell">
+                    D2
+                </div>
+            </div>
+            <div class="innerCol">
+                <div class="staticCell">
+                    65-69
+                </div>
+                <div class="staticCell">
+                    C3
+                </div>
+            </div>
+            <div class="innerCol">
+                <div class="staticCell">
+                    60-64
+                </div>
+                <div class="staticCell">
+                    C4
+                </div>
+            </div>
+            <div class="innerCol">
+                <div class="staticCell">
+                    55-59
+                </div>
+                <div class="staticCell">
+                    C5
+                </div>
+            </div>
+            <div class="innerCol">
+                <div class="staticCell">
+                    50-54
+                </div>
+                <div class="staticCell">
+                    C6
+                </div>
+            </div>
+            <div class="innerCol">
+                <div class="staticCell">
+                    45-49
+                </div>
+                <div class="staticCell">
+                    P7
+                </div>
+            </div>
+            <div class="innerCol">
+                <div class="staticCell">
+                    40-44
+                </div>
+                <div class="staticCell">
+                    P8
+                </div>
+            </div>
+            <div class="innerCol">
+                <div class="staticCell">
+                    0-39
+                </div>
+                <div class="staticCell">
+                    F9
+                </div>
+            </div>
+        </div>
+        <div class="reportOutros">
+            <div class="aggs"></div>
+            <div class="nxtTerm">
+                Next term begins on: 22nd May, 2023
+            </div>
+            <div class="classTr">
+            </div>
+            <div class="theSign">
+                Signed:
+            </div><img src="nikSig.png" class="sigHm">
+            <div class="teller"></div>
+            <button class="populator" onclick="populate()">Populator</button>
+        </div>
+        <script>
+            const ipcRenderer = window.theDataPath.renderer
+            const strungArr = ipcRenderer.sendSync('bringArr')
+            const accessStuff = strungArr.split('endOut')
+            const bodyWrdsArrs= []
+            const accessDataA = accessStuff.shift().split('endIn')
+            const accessDataB = []
+            accessStuff.forEach(el=>{
+                accessDataB.push(el.split('endIn'))
+            })
+            const optsArr = ['Agriculture', 'Entrepreneurship', 'Art', 'ICT', 'CRE', 'IRE', 'Luganda', 'Literature']
+            function populate(){
+                for (let i=1; i<accessDataB.length; i++) {
+                    const repClone = document.querySelector('.person1').cloneNode(true)
+                    document.querySelector('body').appendChild(repClone)
+                }
+                //giving names, classes n genders
+                const reportIntros = ['addName', 'addClass', 'addGender']
+                for (let r=0;r<reportIntros.length;r++) {
+                    for (let i=1; i<=accessDataB.length; i++) {
+                        const scoop = accessDataB[i-1].shift()
+                        const theTarget = document.querySelector(`body>div:nth-of-type(${i})`).querySelector(`.${reportIntros[r]}`)
+                        theTarget.innerHTML = scoop
+                    }
+                    accessDataA.shift()
+                }
+                //now, add data for subjects. compulsories and optionals. optsArr is right outside function
+            }
+            //the code below here is pretending that its only one page of the html file
+            document.querySelector('.aggs').innerHTML = 'Total Aggregates:  ' + aggser()
+            function aggser() {
+                const startArr = []
+                document.querySelectorAll('')
+                return '<u>' + 'theNum' + '</u>'
+            }
+            //document.querySelector('.subjRow')
+        </script>
+</body>
+</html>

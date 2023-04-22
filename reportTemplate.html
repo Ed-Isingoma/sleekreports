@@ -148,7 +148,8 @@
         .sigHm {
             width: 50px;
             display: inline;
-            padding-top: 10px;
+            margin-top: 2px;
+            vertical-align: bottom;
         }
     </style>
 </head>
@@ -256,7 +257,6 @@
                     document.querySelector('body').appendChild(repClone)
                 }
                 //this code gives names, classes n genders. will also work for old curriculum
-                //accessDataA.shift() //removing studentIDs
                 const reportIntros = ['addName', 'addClass', 'addGender']
                 for (let r=0;r<reportIntros.length;r++) {
                     for (let i=1; i<=accessDataB.length; i++) {
