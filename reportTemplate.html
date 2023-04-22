@@ -19,12 +19,11 @@
         .reportPage {
             height: 330mm;
             width: 215mm;
-            background-color: honeydew;
+            /*background-color: honeydew;*/
             color: black;
             font-family: "Calibri", serif;
             font-size: 17px;
             text-align: center;
-            border: 3px bold rebeccapurple;/*this one has refused*/
         }
         .header {
             font-weight: bolder;
@@ -32,14 +31,22 @@
             max-height: 2.5cm;
             display: inline-block;
         }
+        .schLogo {
+            display: block;
+            width: 65px;
+            float: left;
+        }
+        .holdTitl {
+            float: left;
+        }
         .firstLine {
-            font-size: 22px;
+            font-size: 24px;
         }
         .blackLine {
             height: 3px;
             width: 100%;
-            background-color: black;
-            margin-bottom: 3px;
+            margin-bottom: 2px;
+            border-top: 3px solid black;
         }
         .reportIntros, .reportOutros {
             font-weight: bold;
@@ -54,36 +61,52 @@
             display: inline-block;
         }
         .addName {
-            width: 60%;
+            width: 83%;
+            text-align: left;
         }
         .addClass, .addGender {
-            width: 20%;
+            width: 34%;
             height: 15px;
+            text-align: left;
         }
         .theirName, .theirClass, .gender {
             width: 15%;
-        }
-        div {/*this one goes out after production*/
-            border: 1px solid grey;
+            text-align: left;
         }
         .realReport {
             width: 190mm;
+            text-align: center;
+            border: 1px solid rgb(58, 58, 58);
+        }
+        .realReport >div, .addTopic, .addComment, .leftmost, .rightmost {
+            border: 1px solid rgb(58, 58, 58);
+        }
+        #origRow {
+            border: none;
         }
         .leftmost {
-            width: 20%;
-            height: 70px;
+            width: 22%;
+            height: 74px;
+            padding-top: 10px;
         }
         .leftmid {
             width: 25%;
-            height: 70px;
+            height: 74px;
+        }
+        .leftmid > div {
+            padding-top: 3px;
         }
         .rightmid {
             width: 41%;
-            height: 70px;
+            height: 74px;
         }
         .rightmost {
-            width: 14%;
-            height: 70px;
+            padding-top: 14px;
+            width: 12%;
+            height: 74px;
+        }
+        .noPad {
+            padding-top: 0px;
         }
         .clearFloat {
             clear: both;
@@ -92,11 +115,17 @@
             float: left;
         }
         .forHeading {
-            max-height: 20px;
+            max-height: 18px;
             overflow: hidden;
+            border: none;
         }
-        .subtbl1, .subtbl2 {
-            height: 35px;
+        .forHeading > div {
+            border: 1px solid rgb(58, 58, 58);
+        }
+        .addTopic, .addComment {
+            height: 37px;
+            font-size: 16px;
+            line-height: 17px;
         }
         .forSubj {
             display: none;
@@ -105,22 +134,10 @@
             text-align: left;
             padding-left: 3px;
         }
-        .trWords {
-            display: inline-block;
-            background-color: orange;
-            width: 20px;
-            height: 20px;
-        }
-        .signn {
-            width: 100px;
-            display: block;
-        }
-        #theSign {/*we have a small problem here*/
-            display: inline;
-            width: 40px;
-        }
-        #classTr {
-            display: inline-block;
+        .theSign {
+            width: 80px;
+            /*border: 2px solid red;*/
+            margin-top: 0;
         }
         .populator {
             display: none;
@@ -128,17 +145,26 @@
         .person1 {
             page-break-after: always;
         }
+        .sigHm {
+            width: 50px;
+            display: inline;
+            padding-top: 10px;
+        }
     </style>
 </head>
 <body class="reportPage">
     <div class="person1">
         <div class="header">
-            <div class="firstLine">
-                PROGRESSIVE SECONDARY SCHOOL KASANA-LUWEERO
+            <img src="logoProgie.jpg" class="schLogo">
+            <div class="holdTitl">
+                <div class="firstLine">
+                    PROGRESSIVE SECONDARY SCHOOL KASANA-LUWEERO
+                </div>
+                <div class="secLine">
+                    progsskl@gmail.com</br>TEL: 0774205590, 0701433027, 0776455080, 0778236023
+                </div>
             </div>
-            <div class="secLine">
-                progsskl@gmail.com</br>TEL: 0774205590, 0701433027, 0776455080, 0778236023
-            </div>
+            <div class="clearFloat"></div>
             <div class="blackLine"></div>
             <div class="blackLine"></div>
         </div>
@@ -146,10 +172,10 @@
             <div class="reportWord">
                 END OF TERM ONE 2023 REPORT CARD
             </div>
-            <div class="theirName">
+            <div class="theirName inlineB">
                 NAME:
             </div><div class="addName inlineB"></div>
-            <div class="theirClass">
+            <div class="theirClass inlineB">
                 CLASS:
             </div><div class="addClass inlineB"></div>
             <div class="gender inlineB">
@@ -161,21 +187,21 @@
         </div>
         <div class="realReport inlineB">
             <div class="forHeading">
-                <div class="leftmost">SUBJECT</div>
+                <div class="leftmost noPad">SUBJECT</div>
                 <div class="leftmid">TOPIC</div>
                 <div class="rightmid">LEARNER'S ACHIEVEMENT</div>
-                <div class="rightmost">TR NAME</div>
+                <div class="rightmost noPad">INITIALS</div>
                 <div class="clearFloat"></div>
             </div>
-            <div class="forSubj">
+            <div class="forSubj" id="origRow">
                 <div class="subjName leftmost"></div>
                 <div class="subjTopics leftmid">
-                    <div class="subtbl1"></div>
-                    <div class="subtbl2"></div>
+                    <div class="addTopic"></div>
+                    <div class="addTopic"></div>
                 </div>
                 <div class="resultsNow rightmid">
-                    <div class="subtbl1"></div>
-                    <div class="subtbl2"></div>
+                    <div class="addComment"></div>
+                    <div class="addComment"></div>
                 </div>
                 <div class="trsInits rightmost"></div>
             </div>
@@ -184,16 +210,11 @@
             <div class="nxtTerm">
                 Next term begins on: 22nd May, 2023
             </div>
-            <div id="classTr">
-                Class Teacher's Comments:
+            <div class="classTr">
             </div>
-            <div class="trWords"></div>
-            <div class="signn">
-                Signature:
-            </div>
-            <div id="theSign">
-                ##
-            </div>
+            <div class="theSign inlineB">
+                Signed:
+            </div><img src="nikSig.png" class="sigHm">
             <div class="teller"></div>
             <button class="populator" onclick="populate()">Populator</button>
         </div>
@@ -218,6 +239,17 @@
                 accessDataB.push(el.split('endIn'))
             })
             //console.log('accessA: ', accessDataA, ' accessOther: ', accessDataB) 
+            const optsObj = {
+                'Agriculture': ['topic 1', 'topic 2', 'M.D'],
+                'Entrepreneurship': ['topic 1', 'topic 2', 'K.D'],
+                'Art': ['topic 1', 'topic 2', 'K.P'],
+                'ICT': ['topic 1', 'topic 2', 'A.D'],
+                'CRE': ['topic 1', 'topic 2', 'O.J.L'],
+                'IRE': ['topic 1', 'topic 2', 'K.S'],
+                'Luganda': ['topic 1', 'topic 2', 'M.H'],
+                'Literature': ['topic 1', 'topic 2', 'W.JB'],
+                'General Knowledge': ['topic 1', 'topic 2']
+            }
             function populate() {
                 for (let i=1; i<accessDataB.length; i++) {
                     const repClone = document.querySelector('.person1').cloneNode(true)
@@ -235,31 +267,99 @@
                     accessDataA.shift()
                 }
                 const subjList = [
-                    ['ENGLISH', 'topic 1', 'topic 2'],
-                    ['PHYSICS', 'topic 1', 'topic 2'],
-                    ['HISTORY', 'topic 1', 'topic 2'],
-                    ['GEOGRAPHY', 'topic 1', 'topic 2'],
-                    ['BIOLOGY', 'topic 1', 'topic 2'],
-                    ['MATHEMATICS', 'topic 1', 'topic 2'],
-                    ['CHEMISTRY', 'topic 1', 'topic 2'],
-                    ['PHYSICAL EDUCATION', 'topic 1', 'topic 2']
+                    ['ENGLISH', 'topic 1', 'topic 2', 'O.C'],
+                    ['PHYSICS', 'topic 1', 'topic 2', 'K.R'],
+                    ['HISTORY', 'topic 1', 'topic 2', 'K.N'],
+                    ['GEOGRAPHY', 'topic 1', 'topic 2', 'K.E'],
+                    ['BIOLOGY', 'topic 1', 'topic 2', 'O.E'],
+                    ['MATHEMATICS', 'topic 1', 'topic 2', 'K.A'],
+                    ['CHEMISTRY', 'topic 1', 'topic 2', 'N.E'],
+                    ['PHYSICAL EDUCATION', 'topic 1', 'topic 2', 'K.P']
                 ]
                 for (let r=1;r<=accessDataB.length;r++) {
                     const aForSubj = document.querySelector(`body>div:nth-of-type(${r})`).querySelector('.forSubj')
+                    //add data for compulsories
                     for (let c=0;c<subjList.length;c++){
                         const rowClone = aForSubj.cloneNode(true)
                         rowClone.querySelector('.subjName').innerHTML = subjList[c][0]
-                        rowClone.querySelector('.subjTopics .subtbl1').innerHTML = subjList[c][1]
-                        rowClone.querySelector('.subjTopics .subtbl2').innerHTML = subjList[c][2]
-                        //convert them into numbers before you shift them to sentences, then use the num additions to create teachers comment
-                        //rowClone.querySelector('.resultsNow .subtbl1').innerHTML = subjList[c][0]
-                        //rowClone.querySelector('.resultsNow .subtbl2').innerHTML = subjList[c][0]
+                        rowClone.querySelector('.addTopic:nth-of-type(1)').innerHTML = subjList[c][1]
+                        rowClone.querySelector('.addTopic:nth-of-type(2)').innerHTML = subjList[c][2]
+                        rowClone.querySelector('.addComment:nth-of-type(1)').innerHTML = refineScoop(accessDataB[r-1][c])
+                        rowClone.querySelector('.addComment:nth-of-type(2)').innerHTML = refineScoop(accessDataB[r-1][c+1])
+                        rowClone.querySelector('.trsInits').innerHTML = subjList[c][3]
                         rowClone.style.display = 'block'
-                        //then we go to the optionals, and... we're done!
                         document.querySelector(`body>div:nth-of-type(${r})`).querySelector('.realReport').appendChild(rowClone) 
                     }
+                    //Removing the NULLs from accdb..?, working on optionals as well
+                    const doneOptionals = []
+                    for (let s=accessDataB[r-1].length-1; s>7;s--) {
+                        if (accessDataB[r-1][s] != 'NULL') {
+                            const rowClone = aForSubj.cloneNode(true)
+                            const sbjctName = accessDataA[s].split('Z')[0]
+                            if (!doneOptionals.includes(sbjctName)) {
+                                rowClone.querySelector('.subjName').innerHTML = sbjctName.toUpperCase()
+                                rowClone.querySelector('.addTopic:nth-of-type(1)').innerHTML = optsObj[sbjctName][0]
+                                rowClone.querySelector('.addTopic:nth-of-type(2)').innerHTML = optsObj[sbjctName][1]
+                                rowClone.querySelector('.addComment:nth-of-type(1)').innerHTML = refineScoop(accessDataB[r-1][s])
+                                rowClone.querySelector('.addComment:nth-of-type(2)').innerHTML = refineScoop(accessDataB[r-1][s-1])
+                                rowClone.querySelector('.trsInits').innerHTML = optsObj[sbjctName][2]
+                                rowClone.style.display = 'block'
+                                document.querySelector(`body>div:nth-of-type(${r})`).querySelector('.realReport').appendChild(rowClone)
+                                doneOptionals.push(sbjctName)
+                            }
+                        } else {
+                            accessDataB[r-1].splice(s,1)
+                        }
+                    }
+                    //inserting marks
+                    /*for (q=0;q<accessDataB[r-1].length;q++) {
+                        const scoop = accessDataB[r-1].shift()
+                        const refinedSc = refineScoop(scoop)
+                        document.querySelector(`body>div:nth-of-type(${r})`).querySelector('.realReport').querySelectorAll(`.addComment`)[q].innerHTML = refinedSc
+                        console.log(document.querySelector(`body>div:nth-of-type(${r})`).querySelector('.realReport').querySelectorAll(`.addComment`)[q])
+                    }*/
+                    //trs comments
+                    let valCounter = 0;
+                    let wholeComment = ''
+                    const firstName = document.querySelector(`body>div:nth-of-type(${r})`).querySelector('.addName').innerHTML.split(' ')[0]
+                    commentNodes = document.querySelector(`body>div:nth-of-type(${r})`).querySelectorAll('.realReport .resultsNow >div')
+                    for (let m=0;m<commentNodes.length;m++){
+                        if (commentNodes[m].innerHTML.includes('Basic')) {
+                            valCounter +=1.15
+                        } else if (commentNodes[m].innerHTML.includes('Moderate')) {
+                            valCounter +=1.95
+                        } else if (commentNodes[m].innerHTML.includes('Competent')) {
+                            valCounter +=2.75
+                        } else {
+                            valCounter += 0.8
+                        }
+                    }
+                    if (valCounter<28) {
+                        wholeComment = `${firstName}, you need to pull up your socks. You're advised to keep reviewing the study material throughout the holiday for better understanding.`
+                    } else if (valCounter<35){
+                        wholeComment = `The overall achievement of ${firstName} may be mediocre but inspiration can be drawn from anywhere. ${firstName} should not settle for less but aim for the stars.`
+                    } else if (valCounter<41) {
+                        wholeComment = 'Generally good performance. Keep doing the good grades, although you need to improve in a few areas.'
+                    } else if (valCounter<47) {
+                        wholeComment = 'This is good overall work and when you continue on this trend next term, only the sky will be your limit.'
+                    } else if (valCounter>=47) {
+                        wholeComment = `Bravo, ${firstName}! Your commitment to your studies always pays off and these grades are a reflection. Keep up the spirit.`
+                    }
+                    document.querySelector(`body>div:nth-of-type(${r})`).querySelector('.classTr').innerHTML = '<b>Class teacher\'s comments: </b>' + wholeComment
+                    //document.querySelector(`body>div:nth-of-type(${r})`).querySelector('.classTr').style.borderWidth = '2px'
                 }
                 nwReallyPrint()
+            }
+            function refineScoop(scoop) {
+                if (+scoop == 0){
+                    return 'Learner missed out on assessment for this topic'
+                } else if (+scoop < 1.5) {
+                    return 'Learner has Basic understanding of concepts in this topic'
+                } else if (+scoop < 2.5) {
+                    return 'Learner has Moderate understanding of concepts in this topic'
+                } else {
+                    return 'Learner is Competent and has almost full knowledge in this topic'
+                }
             }
             const ev = new MouseEvent("click")
             document.querySelector('.populator').dispatchEvent(ev)

@@ -40,12 +40,12 @@ ipcMain.on('printThis', (e, theArr)=> {
             preload: path.join(app.getAppPath(), 'reportPreload.js'),
         }
     })
-    printWin.minimize()
+    printWin.maximize()
     printWin.loadFile('./reportTemplate.html')
 })
 ipcMain.on('doneLoading', (e, filename)=> {
     printWin.webContents.printToPDF({
-        printBackground: false,
+        printBackground: true,
         pageSize: 'A4',
         landscape: false
     }).then(data => {
