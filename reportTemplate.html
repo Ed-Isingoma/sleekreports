@@ -284,16 +284,19 @@
                         rowClone.querySelector('.subjName').innerHTML = subjList[c][0]
                         rowClone.querySelector('.addTopic:nth-of-type(1)').innerHTML = subjList[c][1]
                         rowClone.querySelector('.addTopic:nth-of-type(2)').innerHTML = subjList[c][2]
-                        rowClone.querySelector('.addComment:nth-of-type(1)').innerHTML = refineScoop(accessDataB[r-1][c])
-                        rowClone.querySelector('.addComment:nth-of-type(2)').innerHTML = refineScoop(accessDataB[r-1][c+1])
+                        rowClone.querySelector('.addComment:nth-of-type(1)').innerHTML = refineScoop(accessDataB[r-1][2*(c+1)-2])
+                        //rowClone.querySelector('.addComment:nth-of-type(1)').innerHTML = accessDataB[r-1][2*(c+1)-2]
+                        //rowClone.querySelector('.addComment:nth-of-type(2)').innerHTML = accessDataB[r-1][2*(c+1)-1]
+                        rowClone.querySelector('.addComment:nth-of-type(2)').innerHTML = refineScoop(accessDataB[r-1][2*(c+1)-1])
                         rowClone.querySelector('.trsInits').innerHTML = subjList[c][3]
                         rowClone.style.display = 'block'
                         document.querySelector(`body>div:nth-of-type(${r})`).querySelector('.realReport').appendChild(rowClone) 
                     }
-                    //Removing the NULLs from accdb..?, working on optionals as well
+                    //Working on optionals
                     const doneOptionals = []
-                    for (let s=accessDataB[r-1].length-1; s>7;s--) {
-                        if (accessDataB[r-1][s] != 'NULL') {
+                    for (let s=accessDataB[r-1].length-1; s>16;s--) {
+                        if (accessDataB[r-1][s] != '') {
+                            console.log('take ' + s + ':' + accessDataB[r-1][s], typeof(+accessDataB[r-1][s]))
                             const rowClone = aForSubj.cloneNode(true)
                             const sbjctName = accessDataA[s].split('Z')[0]
                             if (!doneOptionals.includes(sbjctName)) {
@@ -357,8 +360,10 @@
                     return 'Learner has Basic understanding of concepts in this topic'
                 } else if (+scoop < 2.5) {
                     return 'Learner has Moderate understanding of concepts in this topic'
-                } else {
+                } else if (+scoop <= 3) {
                     return 'Learner is Competent and has almost full knowledge in this topic'
+                } else {
+                    return 'Learner missed assessment for this topic'
                 }
             }
             const ev = new MouseEvent("click")
