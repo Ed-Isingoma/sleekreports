@@ -43,6 +43,19 @@ ipcMain.on('printThis', (e, theArr)=> {
     printWin.maximize()
     printWin.loadFile('./reportTemplate.html')
 })
+ipcMain.on('printThese', (e, theArr)=> {
+    transitArr = theArr;
+    printWin = new BrowserWindow({
+        width: 800,
+        height: 600,
+        show: true,
+        webPreferences: {
+            preload: path.join(app.getAppPath(), 'reportPreload.js'),
+        }
+    })
+    printWin.maximize()
+    printWin.loadFile('./oldCurrTempl.html')
+})
 ipcMain.on('doneLoading', (e, filename)=> {
     printWin.webContents.printToPDF({
         printBackground: true,
@@ -53,8 +66,7 @@ ipcMain.on('doneLoading', (e, filename)=> {
         mainWin.webContents.send('printPath', path.join(app.getPath('documents'), filename + '.pdf'))
         e.sender.send('printInfo', 'Finished writeFileSync')
     }).then(()=> {//printWin.close()
-    }).then(()=>{
-        fs.unlinkSync(thePath + '/reportTemplate.html')}).catch(err =>e.sender.send('printInfo', err))
+    }).catch(err =>e.sender.send('printInfo', err))
 })
 ipcMain.on('bringArr', (e, arg)=> {
     e.returnValue = transitArr
