@@ -22,7 +22,7 @@
             /*background-color: honeydew;*/
             color: black;
             font-family: "Calibri", serif;
-            font-size: 17px;
+            font-size: 20px;
             text-align: center;
         }
         .header {
@@ -40,7 +40,7 @@
             float: left;
         }
         .firstLine {
-            font-size: 24px;
+            font-size: 27px;
         }
         .blackLine {
             height: 3px;
@@ -55,6 +55,10 @@
         }
         .reportIntros > div:not(:first-of-type) {
             display: inline-block;
+        }
+        .reportIntros > div {
+            padding-top: 5px;
+            padding-bottom: 5px;
         }
 
         .clearFloat {
@@ -79,15 +83,19 @@
             text-align: center;
             border: 1px solid rgb(58, 58, 58);
         }
-        .subjHead {
-            width: 33.3%;
+        .scores, .grades {
+            width: 25%;
+            float: left;
+        }
+        .subjNames {
+            width: 50%;
             float: left;
         }
         .staticTbl {
             border: 1px solid rgb(59, 59, 59);
             display: flex;
             margin: auto;
-            max-width: 66%;
+            width: fit-content;
             flex-direction: row;
         }
         /*.staticTbl .staticCell {
@@ -122,6 +130,10 @@
             margin-top: 2px;
             vertical-align: bottom;
         }
+        .padded {
+            margin-top: 3px;
+            margin-bottom: 3px;
+        }
     </style>
 </head>
 <body class="reportPage">
@@ -154,21 +166,21 @@
                 GENDER:
             </div><div class="addGender"></div>
         </div>
-        <div class="realReport">
+        <div class="realReport padded">
             <div class="subjRow">
-                <div class="subjHead">Subject</div>
-                <div class="subjHead">Score</div>
-                <div class="subjHead">Grade</div>
+                <div class="subjHead subjNames"><b>Subject</b></div>
+                <div class="subjHead scores"><b>Score</b></div>
+                <div class="subjHead grades"><b>Grade</b></div>
                 <div class="clearFloat"></div>
             </div>
         </div>
-        <div class="staticTbl">
+        <div class="staticTbl padded">
             <div class="innerCol">
                 <div class="staticCell">
-                    Score
+                    <b>Score</b>
                 </div>
                 <div class="staticCell">
-                    Grading
+                    <b>Grading</b>
                 </div>
             </div>
             <div class="innerCol">
@@ -246,7 +258,7 @@
         </div>
         <div class="reportOutros">
             <div class="aggs"></div>
-            <div class="nxtTerm">
+            <div class="nxtTerm padded">
                 Next term begins on: 22nd May, 2023
             </div>
             <div class="classTr">
@@ -267,7 +279,21 @@
             accessStuff.forEach(el=>{
                 accessDataB.push(el.split('endIn'))
             })
-            const optsArr = ['Agriculture', 'Entrepreneurship', 'Art', 'ICT', 'CRE', 'IRE', 'Luganda', 'Literature']
+            const optsArr = ['Agriculture', 'Entrepreneurship', 'Art', 'CRE', 'IRE', 'Luganda', 'Literature']
+            const subjList = ['ENGLISH', 'PHYSICS', 'HISTORY', 'GEOGRAPHY', 'BIOLOGY', 'MATHEMATICS', 'CHEMISTRY']
+            const aggsObj = {'D1':1,'D2':2,'C3':3,'C4':4,'C5':5,'C6':6,'P7':7,'P8':8,'F9':9}
+            let gradesArr = []
+            for (let i=0;i<40;i++){
+                gradesArr.push('F9')
+            }
+            const gradesToAdd = ['P8', 'P7', 'C6', 'C5', 'C4', 'C3', 'D2', 'D2', 'D1', 'D1', 'D1', 'D1']
+            gradesToAdd.forEach(e=>{
+                for (let i=0;i<5;i++){
+                gradesArr.push(e)
+            }
+            })
+            gradesArr.push('D1')
+            //console.log('gradesar:', gradesArr)
             function populate(){
                 for (let i=1; i<accessDataB.length; i++) {
                     const repClone = document.querySelector('.person1').cloneNode(true)
@@ -283,16 +309,94 @@
                     }
                     accessDataA.shift()
                 }
-                //now, add data for subjects. compulsories and optionals. optsArr is right outside function
+                for (let z=1; z<=accessDataB.length; z++) {
+                    const currBod = document.querySelector(`body>div:nth-of-type(${z})`)
+                    //Data for compulsories and optionals. I wonder why we have to splice on the 'else'
+                    for (let c=0;c<subjList.length;c++){
+                    const rowClone = currBod.querySelector('.subjRow').cloneNode(true)
+                    rowClone.querySelector('.subjNames').innerHTML = subjList[c]
+                    rowClone.querySelector('.scores').innerHTML = accessDataB[z-1][c]
+                    rowClone.querySelector('.grades').innerHTML = gradesArr[+accessDataB[z-1][c]]
+                    rowClone.style.display = 'block'
+                    currBod.querySelector('.realReport').appendChild(rowClone) 
+                    }
+                    for (let s=accessDataB[z-1].length-1; s>6;s--) {
+                        if (accessDataB[z-1][s] != '') {
+                            console.log('take ' + s + ':' + accessDataB[z-1][s])
+                            const rowClone = currBod.querySelector('.subjRow').cloneNode(true)
+                            const sbjctName = accessDataA[s].split('Z')[0]
+                            rowClone.querySelector('.subjNames').innerHTML = sbjctName.toUpperCase()
+                            rowClone.querySelector('.scores').innerHTML = accessDataB[z-1][s]
+                            rowClone.querySelector('.grades').innerHTML = gradesArr[accessDataB[z-1][s]]
+                            rowClone.style.display = 'block'
+                            currBod.querySelector('.realReport').appendChild(rowClone) 
+                        } /*else {
+                            accessDataB[z-1].splice(s,1)
+                        }*/
+                    }
+
+                    //Calculating aggregates in 8
+                    let aggsGot;//for when making comment
+                    currBod.querySelector('.aggs').innerHTML = 'Total Aggregates:  ' + aggser()
+                    function aggser() {
+                        const startArr = []
+                        currBod.querySelectorAll('.grades').forEach(e=>{
+                            startArr.push(e.innerHTML)
+                        })
+                        startArr.shift()
+                        const numsArr = []
+                        startArr.forEach(e=>{
+                            if (e) {
+                                numsArr.push(aggsObj[e])
+                            }
+                        })
+                        numsArr.sort()
+                        let aggCount = 0
+                        for (let i=0;i<8;i++){
+                            aggCount += numsArr[i]
+                        }
+                        aggsGot = aggCount
+                        console.log('aggcount:', aggCount)
+                        return '<u>' + aggCount + '</u>'
+                    }
+                    //trs comments
+                    let wholeComment = ''
+                    const firstName = currBod.querySelector('.addName').innerHTML.split(' ')[0]
+                    if (aggsGot>64) {
+                        wholeComment = `${firstName}, you need to pull up your socks. You're advised to keep reviewing the study material throughout the holiday for better understanding.`
+                    } else if (aggsGot>57){
+                        wholeComment = `The overall achievement of ${firstName} may be mediocre but inspiration can be drawn from anywhere. ${firstName} should not settle for less but aim for the stars.`
+                    } else if (aggsGot>50) {
+                        wholeComment = 'Not a discouraging performance. Keep doing the good grades, although you need to improve in some areas.'
+                    } else if (aggsGot>40) {
+                        wholeComment = 'This is good overall work and when you continue on this trend next term, only the sky will be your limit.'
+                    } else if (aggsGot>=8){
+                        wholeComment = `Bravo, ${firstName}! You're first grade material and any more commitment you add will reflect that. Keep up the spirit.`
+                    } else {
+                        wholeComment = '[Syntax error]'
+                    }
+                    currBod.querySelector('.classTr').innerHTML = '<b>Class teacher\'s comments: </b>' + wholeComment
+                }
+                nwReallyPrint()
             }
-            //the code below here is pretending that its only one page of the html file
-            document.querySelector('.aggs').innerHTML = 'Total Aggregates:  ' + aggser()
-            function aggser() {
-                const startArr = []
-                document.querySelectorAll('')
-                return '<u>' + 'theNum' + '</u>'
+            const ev = new MouseEvent("click")
+            document.querySelector('.populator').dispatchEvent(ev)
+            function nwReallyPrint() {
+                const dateArr = Date().toString().split(' ')
+                    dateArr.splice(-4, 4)
+                    let filename = ''
+                    for (let i=0; i<dateArr.length;i++) {
+                        filename+=dateArr[i]
+                    }
+                    ipcRenderer.send('doneLoading', filename)
             }
-            //document.querySelector('.subjRow')
+            //the UI teller
+            document.querySelector('.teller').addEventListener('printed', ()=> {
+                console.log('Received printPath')
+                document.querySelector('.teller').innerHTML = 'Printed successfully to ' + document.querySelector('.teller').dataset.message
+                document.querySelector('.teller').style.display = 'flex'
+                setTimeout(()=> {document.querySelector('.teller').style.display = 'none'}, 3000)
+            })
         </script>
 </body>
 </html>

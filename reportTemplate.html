@@ -325,7 +325,7 @@
                     let valCounter = 0;
                     let wholeComment = ''
                     const firstName = document.querySelector(`body>div:nth-of-type(${r})`).querySelector('.addName').innerHTML.split(' ')[0]
-                    commentNodes = document.querySelector(`body>div:nth-of-type(${r})`).querySelectorAll('.realReport .resultsNow >div')
+                    commentNodes = document.querySelector(`body>div:nth-of-type(${r})`).querySelectorAll('.realReport .resultsNow >div') //i didnt let or const this, but it worked
                     for (let m=0;m<commentNodes.length;m++){
                         if (commentNodes[m].innerHTML.includes('Basic')) {
                             valCounter +=1.15
@@ -349,10 +349,10 @@
                         wholeComment = `Bravo, ${firstName}! Your commitment to your studies always pays off and these grades are a reflection. Keep up the spirit.`
                     }
                     document.querySelector(`body>div:nth-of-type(${r})`).querySelector('.classTr').innerHTML = '<b>Class teacher\'s comments: </b>' + wholeComment
-                    //document.querySelector(`body>div:nth-of-type(${r})`).querySelector('.classTr').style.borderWidth = '2px'
                 }
                 nwReallyPrint()
             }
+            //later, you can import the currbod from oldcurrtemp
             function refineScoop(scoop) {
                 if (+scoop == 0){
                     return 'Learner missed out on assessment for this topic'
