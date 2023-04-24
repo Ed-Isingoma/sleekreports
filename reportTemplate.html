@@ -241,15 +241,14 @@
             })
             //console.log('accessA: ', accessDataA, ' accessOther: ', accessDataB) 
             const optsObj = {
-                'Agriculture': ['topic 1', 'topic 2', 'M.D'],
-                'Entrepreneurship': ['topic 1', 'topic 2', 'K.D'],
-                'Art': ['topic 1', 'topic 2', 'K.P'],
-                'ICT': ['topic 1', 'topic 2', 'A.D'],
-                'CRE': ['topic 1', 'topic 2', 'O.J.L'],
-                'IRE': ['topic 1', 'topic 2', 'K.S'],
-                'Luganda': ['topic 1', 'topic 2', 'M.H'],
-                'Literature': ['topic 1', 'topic 2', 'W.JB'],
-                'General Knowledge': ['topic 1', 'topic 2']
+                'Agriculture': ['Tillage', 'Weeds', 'M.D'],
+                'Entrepreneurship': ['Business start up process', 'Government revenue', 'K.D'],
+                'Art': ['Introduction to graphic design', 'Collage and Mosaic', 'K.P'],
+                'ICT': ['Computer system', 'Computer peripheral devices', 'A.D'],
+                'CRE': ['Religious beliefs in ATR and Christianity', 'Foundations of Islam and Christianity', 'O.J.L'],
+                'IRE': ['Shahadah', 'Swallah', 'K.S'],
+                'Luganda': ['School environment', 'Public places', 'M.H'],
+                'Literature': ['Poetry', 'Character traits', 'W.JB'],
             }
             function populate() {
                 for (let i=1; i<accessDataB.length; i++) {
@@ -267,14 +266,14 @@
                     accessDataA.shift()
                 }
                 const subjList = [
-                    ['ENGLISH', 'topic 1', 'topic 2', 'O.C'],
-                    ['PHYSICS', 'topic 1', 'topic 2', 'K.R'],
-                    ['HISTORY', 'topic 1', 'topic 2', 'K.N'],
-                    ['GEOGRAPHY', 'topic 1', 'topic 2', 'K.E'],
-                    ['BIOLOGY', 'topic 1', 'topic 2', 'O.E'],
-                    ['MATHEMATICS', 'topic 1', 'topic 2', 'K.A'],
-                    ['CHEMISTRY', 'topic 1', 'topic 2', 'N.E'],
-                    ['PHYSICAL EDUCATION', 'topic 1', 'topic 2', 'K.P']
+                    ['ENGLISH', 'Speeches at celebrations', 'Relative/ Interrogative pronouns', 'O.C'],
+                    ['PHYSICS', 'Work, Energy and Power', 'Simple machines', 'K.R'],
+                    ['HISTORY', 'Trade in E.Africa before 1880', 'Partition and colonisation in E.Africa', 'K.N'],
+                    ['GEOGRAPHY', 'Formation of landforms', 'Drainage in East Africa', 'K.E'],
+                    ['BIOLOGY', 'Flowering plants', 'Soil', 'O.E'],
+                    ['MATHEMATICS', 'Mappings and ratios', 'Vectors and translations', 'K.A'],
+                    ['CHEMISTRY', 'Water in Chemistry', 'Rocks and minerals', 'N.E'],
+                    ['PHYSICAL EDUCATION', 'Safety and First Aid', 'Body conditioning', 'K.P']
                 ]
                 for (let r=1;r<=accessDataB.length;r++) {
                     const aForSubj = document.querySelector(`body>div:nth-of-type(${r})`).querySelector('.forSubj')
@@ -296,7 +295,7 @@
                     const doneOptionals = []
                     for (let s=accessDataB[r-1].length-1; s>16;s--) {
                         if (accessDataB[r-1][s] != '') {
-                            console.log('take ' + s + ':' + accessDataB[r-1][s], typeof(+accessDataB[r-1][s]))
+                            //console.log('take ' + s + ':' + accessDataB[r-1][s], typeof(+accessDataB[r-1][s]))
                             const rowClone = aForSubj.cloneNode(true)
                             const sbjctName = accessDataA[s].split('Z')[0]
                             if (!doneOptionals.includes(sbjctName)) {

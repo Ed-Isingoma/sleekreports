@@ -3,21 +3,21 @@ const fs = window.theDataPath.fs
 const dataPath = ipcRenderer.sendSync('bringLink', '')
 
 function printeryBe() {
-    const headWrds = document.querySelectorAll('table:nth-of-type(1) > tbody>tr>td')
+    const headWrds = document.querySelectorAll('table:nth-of-type(1) td') //> tbody>tr>
     const headWrdsArr = [] //contains each of the divs going to printery
     headWrds.forEach(e=> {headWrdsArr.push(e.innerHTML)})
-    headWrdsArr.shift();
+    //headWrdsArr.shift();//if the code works, dONt change it
     const newHeadWrds = []
     headWrdsArr.forEach(e=>{
-         newHeadWrds.push(e.replace('<font style=\"FONT-SIZE:11pt\" face=\"Calibri\" color=\"#a89d7f\">', '').replace('</font>', ''))
+         newHeadWrds.push(e.replace('<font style="FONT-SIZE:11pt" face="Calibri" color="#000000">', '').replace('</font>', ''))
     })
-    const bodyWrds = document.querySelectorAll('table:nth-of-type(2)>tbody>tr')
+    const bodyWrds = document.querySelectorAll('table:nth-of-type(2) tr')//>tbody>
     const bodyWrdsArrs = []
     for (let i=0; i<bodyWrds.length; i++) {
         const tempNode = bodyWrds[i].querySelectorAll('td')
         const tempArr = []
-        tempNode.forEach(e=>{tempArr.push(e.innerHTML.replace('<font style=\"FONT-SIZE:11pt\" face=\"Calibri\" color=\"#6f664c\">', '').replace('</font>', ''))})
-        tempArr.shift()
+        tempNode.forEach(e=>{tempArr.push(e.innerHTML.replace('<font style="FONT-SIZE:11pt" face="Calibri" color="#000000">', '').replace('</font>', ''))})
+        //tempArr.shift()
         bodyWrdsArrs.push(tempArr)
     }
     bodyWrdsArrs.unshift(newHeadWrds)
@@ -26,24 +26,25 @@ function printeryBe() {
         freshArr.push(bodyWrdsArrs[i].join('endIn'))
     }
     const newDataSet = freshArr.join('endOut')
+    //console.log('newData', newDataSet)
     ipcRenderer.send('printThis', newDataSet)
 }
-function printeryBe2() {
+function printeryBe2() {//for the old curriculum
     const headWrds = document.querySelectorAll('table:nth-of-type(1) > tbody>tr>td')
     const headWrdsArr = [] //contains each of the divs going to printery
     headWrds.forEach(e=> {headWrdsArr.push(e.innerHTML)})
-    headWrdsArr.shift();
+    //headWrdsArr.shift();
     const newHeadWrds = []
     headWrdsArr.forEach(e=>{
-         newHeadWrds.push(e.replace('<font style=\"FONT-SIZE:11pt\" face=\"Calibri\" color=\"#a89d7f\">', '').replace('</font>', ''))
+         newHeadWrds.push(e.replace('<font style="FONT-SIZE:11pt" face="Calibri" color="#000000">', '').replace('</font>', ''))
     })
     const bodyWrds = document.querySelectorAll('table:nth-of-type(2)>tbody>tr')
     const bodyWrdsArrs = []
     for (let i=0; i<bodyWrds.length; i++) {
         const tempNode = bodyWrds[i].querySelectorAll('td')
         const tempArr = []
-        tempNode.forEach(e=>{tempArr.push(e.innerHTML.replace('<font style=\"FONT-SIZE:11pt\" face=\"Calibri\" color=\"#6f664c\">', '').replace('</font>', ''))})
-        tempArr.shift()
+        tempNode.forEach(e=>{tempArr.push(e.innerHTML.replace('<font style="FONT-SIZE:11pt" face="Calibri" color="#000000">', '').replace('</font>', ''))})
+        //tempArr.shift()
         bodyWrdsArrs.push(tempArr)
     }
     bodyWrdsArrs.unshift(newHeadWrds)
@@ -52,6 +53,7 @@ function printeryBe2() {
         freshArr.push(bodyWrdsArrs[i].join('endIn'))
     }
     const newDataSet = freshArr.join('endOut')
+    //console.log('newData', newDataSet)
     ipcRenderer.send('printThese', newDataSet)
 }
 function exitWork(){
