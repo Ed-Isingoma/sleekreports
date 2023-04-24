@@ -220,35 +220,25 @@
             <button class="populator" onclick="populate()">Populator</button>
         </div>
 
-
-        
         <script>
             const ipcRenderer = window.theDataPath.renderer
             const strungArr = ipcRenderer.sendSync('bringArr')
-            //const bodyWrdsArrs = JSON.parse(strungArr)
-            //console.log('strungArr: ', strungArr)
-            //console.log('one ', bodyWrdsArrs[0], bodyWrdsArrs.slice(1))
             const accessStuff = strungArr.split('endOut')
             const bodyWrdsArrs= []
-            //console.log('accessStuff: ', accessStuff)
-            //accessStuff.forEach(e=>{
-            //    bodyWrdsArrs.push(e.split('endIn'))
-            //})
             const accessDataA = accessStuff.shift().split('endIn')
             const accessDataB = []
             accessStuff.forEach(el=>{
                 accessDataB.push(el.split('endIn'))
             })
-            //console.log('accessA: ', accessDataA, ' accessOther: ', accessDataB) 
             const optsObj = {
-                'Agriculture': ['Tillage', 'Weeds', 'M.D'],
-                'Entrepreneurship': ['Business start up process', 'Government revenue', 'K.D'],
+                'Agriculture': ['Poultry production', 'Livestock management practices', 'M.D'],
+                'Entrepreneurship': ['Marketing in business enterprises', 'Money and financial institutions', 'K.D'],
                 'Art': ['Introduction to graphic design', 'Collage and Mosaic', 'K.P'],
-                'ICT': ['Computer system', 'Computer peripheral devices', 'A.D'],
-                'CRE': ['Religious beliefs in ATR and Christianity', 'Foundations of Islam and Christianity', 'O.J.L'],
-                'IRE': ['Shahadah', 'Swallah', 'K.S'],
-                'Luganda': ['School environment', 'Public places', 'M.H'],
-                'Literature': ['Poetry', 'Character traits', 'W.JB'],
+                'ICT': ['Computer hardware', 'Computer software', 'A.D'],
+                'CRE': ['Human dignity and value', 'Marriage in African Traditional Society', 'O.J.L'],
+                'IRE': ['Jahiliyyah', 'Zakat', 'K.S'],
+                'Luganda': ['Games and Sports', "Eby'obulambuzi", 'M.H'],
+                'Literature': ['Heart soothers', 'Oral literature', 'W.JB'],
             }
             function populate() {
                 for (let i=1; i<accessDataB.length; i++) {
@@ -266,14 +256,14 @@
                     accessDataA.shift()
                 }
                 const subjList = [
-                    ['ENGLISH', 'Speeches at celebrations', 'Relative/ Interrogative pronouns', 'O.C'],
-                    ['PHYSICS', 'Work, Energy and Power', 'Simple machines', 'K.R'],
-                    ['HISTORY', 'Trade in E.Africa before 1880', 'Partition and colonisation in E.Africa', 'K.N'],
-                    ['GEOGRAPHY', 'Formation of landforms', 'Drainage in East Africa', 'K.E'],
-                    ['BIOLOGY', 'Flowering plants', 'Soil', 'O.E'],
-                    ['MATHEMATICS', 'Mappings and ratios', 'Vectors and translations', 'K.A'],
-                    ['CHEMISTRY', 'Water in Chemistry', 'Rocks and minerals', 'N.E'],
-                    ['PHYSICAL EDUCATION', 'Safety and First Aid', 'Body conditioning', 'K.P']
+                    ['ENGLISH', 'Relative clauses', 'Modern communication technology', 'O.C'],
+                    ['PHYSICS', 'Renewable and non renewable energy', 'Simple machines', 'K.R'],
+                    ['HISTORY', 'Post independence challenges in E.Africa', 'Land tenure system in E.Africa', 'K.N'],
+                    ['GEOGRAPHY', 'Tourism and wildlife', 'Formation of landforms', 'K.E'],
+                    ['BIOLOGY', 'Transport in animals', 'Excretion', 'O.E'],
+                    ['MATHEMATICS', 'Equations of a straight line', 'Trigonometry', 'K.A'],
+                    ['CHEMISTRY', 'The periodic table', 'Acids and bases', 'A.E']//,
+                    //['PHYSICAL EDUCATION', 'Safety and First Aid', 'Body conditioning', 'K.P'] //this does not exist for S.3
                 ]
                 for (let r=1;r<=accessDataB.length;r++) {
                     const aForSubj = document.querySelector(`body>div:nth-of-type(${r})`).querySelector('.forSubj')
@@ -284,8 +274,6 @@
                         rowClone.querySelector('.addTopic:nth-of-type(1)').innerHTML = subjList[c][1]
                         rowClone.querySelector('.addTopic:nth-of-type(2)').innerHTML = subjList[c][2]
                         rowClone.querySelector('.addComment:nth-of-type(1)').innerHTML = refineScoop(accessDataB[r-1][2*(c+1)-2])
-                        //rowClone.querySelector('.addComment:nth-of-type(1)').innerHTML = accessDataB[r-1][2*(c+1)-2]
-                        //rowClone.querySelector('.addComment:nth-of-type(2)').innerHTML = accessDataB[r-1][2*(c+1)-1]
                         rowClone.querySelector('.addComment:nth-of-type(2)').innerHTML = refineScoop(accessDataB[r-1][2*(c+1)-1])
                         rowClone.querySelector('.trsInits').innerHTML = subjList[c][3]
                         rowClone.style.display = 'block'
@@ -293,7 +281,7 @@
                     }
                     //Working on optionals
                     const doneOptionals = []
-                    for (let s=accessDataB[r-1].length-1; s>16;s--) {
+                    for (let s=accessDataB[r-1].length-1; s>14;s--) {
                         if (accessDataB[r-1][s] != '') {
                             //console.log('take ' + s + ':' + accessDataB[r-1][s], typeof(+accessDataB[r-1][s]))
                             const rowClone = aForSubj.cloneNode(true)
@@ -313,13 +301,6 @@
                             accessDataB[r-1].splice(s,1)
                         }
                     }
-                    //inserting marks
-                    /*for (q=0;q<accessDataB[r-1].length;q++) {
-                        const scoop = accessDataB[r-1].shift()
-                        const refinedSc = refineScoop(scoop)
-                        document.querySelector(`body>div:nth-of-type(${r})`).querySelector('.realReport').querySelectorAll(`.addComment`)[q].innerHTML = refinedSc
-                        console.log(document.querySelector(`body>div:nth-of-type(${r})`).querySelector('.realReport').querySelectorAll(`.addComment`)[q])
-                    }*/
                     //trs comments
                     let valCounter = 0;
                     let wholeComment = ''
