@@ -7,16 +7,20 @@ function printeryBe() {
     const headWrdsArr = [] //contains each of the divs going to printery
     headWrds.forEach(e=> {headWrdsArr.push(e.innerHTML)})
     //headWrdsArr.shift();//if the code works, dONt change it
+    //console.log(headWrdsArr)
     const newHeadWrds = []
     headWrdsArr.forEach(e=>{
-         newHeadWrds.push(e.replace('<font style="FONT-SIZE:11pt" face="Calibri" color="#000000">', '').replace('</font>', ''))
+        newHeadWrds.push(e)
+         //newHeadWrds.push(e.replace('<font style="FONT-SIZE:11pt" face="Calibri" color="#000000">', '').replace('</font>', ''))
     })
+    //console.log(newHeadWrds)
     const bodyWrds = document.querySelectorAll('table:nth-of-type(2) tr')//>tbody>
     const bodyWrdsArrs = []
     for (let i=0; i<bodyWrds.length; i++) {
         const tempNode = bodyWrds[i].querySelectorAll('td')
         const tempArr = []
-        tempNode.forEach(e=>{tempArr.push(e.innerHTML.replace('<font style="FONT-SIZE:11pt" face="Calibri" color="#000000">', '').replace('</font>', ''))})
+        tempNode.forEach(e=>{tempArr.push(e.innerHTML)})
+        //tempNode.forEach(e=>{tempArr.push(e.innerHTML.replace('<font style="FONT-SIZE:11pt" face="Calibri" color="#000000">', '').replace('</font>', ''))})
         //tempArr.shift()
         bodyWrdsArrs.push(tempArr)
     }

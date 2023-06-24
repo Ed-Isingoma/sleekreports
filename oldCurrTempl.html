@@ -315,7 +315,7 @@
                     for (let c=0;c<subjList.length;c++){
                     const rowClone = currBod.querySelector('.subjRow').cloneNode(true)
                     rowClone.querySelector('.subjNames').innerHTML = subjList[c]
-                    rowClone.querySelector('.scores').innerHTML = accessDataB[z-1][c]
+                    rowClone.querySelector('.scores').innerHTML = Number(accessDataB[z-1][c])
                     rowClone.querySelector('.grades').innerHTML = gradesArr[+accessDataB[z-1][c]]
                     rowClone.style.display = 'block'
                     currBod.querySelector('.realReport').appendChild(rowClone) 
@@ -326,8 +326,8 @@
                             const rowClone = currBod.querySelector('.subjRow').cloneNode(true)
                             const sbjctName = accessDataA[s].split('Z')[0]
                             rowClone.querySelector('.subjNames').innerHTML = sbjctName.toUpperCase()
-                            rowClone.querySelector('.scores').innerHTML = accessDataB[z-1][s]
-                            rowClone.querySelector('.grades').innerHTML = gradesArr[accessDataB[z-1][s]]
+                            rowClone.querySelector('.scores').innerHTML = Number(accessDataB[z-1][s])
+                            rowClone.querySelector('.grades').innerHTML = gradesArr[+accessDataB[z-1][s]]
                             rowClone.style.display = 'block'
                             currBod.querySelector('.realReport').appendChild(rowClone) 
                         } /*else {

@@ -1,0 +1,9 @@
+For s4s, you go into oldCurricMarks, pick the table of headings, copy it into the new brought file as the first table, copy and paste also the buttons at the bottom of oldCurricMarks. Also make sure there's no <th> element but <td>.
+
+You need to edit the 'End of term 1' and 'Next term begins on' parts
+
+Make sure that the html from MSaccess is not formatted with "<FONTstyle=FONT-SIZE:11pt FACE='Calibri'COLOR=#000000>" or "BGCOLOR=#c0c0c0BORDERCOLOR=#000000" stuff
+
+remember to remove this stuff from reportRenderer of all commit versions; e.replace('<font style="FONT-SIZE:11pt" face="Calibri" color="#000000">'
+
+Make sure the order of columns (subject names) as previously done is respected.
