@@ -19,7 +19,6 @@
         .reportPage {
             height: 330mm;
             width: 215mm;
-            /*background-color: honeydew;*/
             color: black;
             font-family: "Calibri", serif;
             font-size: 17px;
@@ -74,35 +73,35 @@
             text-align: left;
         }
         .realReport {
-            width: 190mm;
+            width: 210mm;
             text-align: center;
             border: 1px solid rgb(58, 58, 58);
         }
-        .realReport >div, .addTopic, .addComment, .leftmost, .rightmost {
+        .realReport >div, .addTopic, .addScore, .leftmost, .rightmost {
             border: 1px solid rgb(58, 58, 58);
         }
         #origRow {
             border: none;
         }
         .leftmost {
-            width: 22%;
+            width: 20%;
             height: 74px;
             padding-top: 10px;
         }
         .leftmid {
-            width: 25%;
+            width: 24%;
             height: 74px;
         }
-        .leftmid > div {
+        .leftmid > div, .rightmid > div {
             padding-top: 3px;
         }
         .rightmid {
-            width: 41%;
+            width: 7%;
             height: 74px;
         }
         .rightmost {
-            padding-top: 14px;
-            width: 12%;
+            /*padding-top: 14px;*/
+            width: 49%;
             height: 74px;
         }
         .noPad {
@@ -122,13 +121,43 @@
         .forHeading > div {
             border: 1px solid rgb(58, 58, 58);
         }
-        .addTopic, .addComment {
+        .addTopic, .addScore {
             height: 37px;
             font-size: 16px;
             line-height: 17px;
         }
         .forSubj {
             display: none;
+        }
+        .scoreKey, .sva {
+            margin-top: 13px;
+            width: 210mm;
+        }
+        .keyHeadings, .forHeading, .svaHeading {
+            background-color: rgb(131, 131, 131);
+        }
+        .svaHeading, .svas {
+            width: 100%;
+        }
+        .scoreKey, .scoreKey > div > div, .sva, .sva > div {
+            display: inline-block;
+            border: 1px solid rgb(58, 58, 58);
+        }
+        .leftKey, .midKey {
+            width: 20%;
+        }
+        .rightKey {
+            width: 59%;
+        }
+        .sva li {
+            width: 49%;
+            display: inline-block;
+        }
+        .sva li:nth-child(3n-1){
+            background-color: rgb(196, 196, 196);
+        }
+        .sva li:nth-child(3n){
+            background-color: rgb(157, 157, 157);
         }
         .reportOutros {
             text-align: left;
@@ -171,7 +200,7 @@
         </div>
         <div class="reportIntros">
             <div class="reportWord">
-                END OF TERM ONE 2023 REPORT CARD
+                END OF TERM TWO 2023 REPORT CARD
             </div>
             <div class="theirName inlineB">
                 NAME:
@@ -182,16 +211,13 @@
             <div class="gender inlineB">
                 GENDER:
             </div><div class="addGender inlineB"></div>
-            <div id="notif">
-                Please note that this new report card format has been adapted to the New Curriculum guidelines from the Ministry of Education.
-            </div>
         </div>
         <div class="realReport inlineB">
             <div class="forHeading">
                 <div class="leftmost noPad">SUBJECT</div>
                 <div class="leftmid">TOPIC</div>
-                <div class="rightmid">LEARNER'S ACHIEVEMENT</div>
-                <div class="rightmost noPad">INITIALS</div>
+                <div class="rightmid">SCORE</div>
+                <div class="rightmost noPad">TEACHER'S REMARKS</div>
                 <div class="clearFloat"></div>
             </div>
             <div class="forSubj" id="origRow">
@@ -201,15 +227,37 @@
                     <div class="addTopic"></div>
                 </div>
                 <div class="resultsNow rightmid">
-                    <div class="addComment"></div>
-                    <div class="addComment"></div>
+                    <div class="addScore"></div>
+                    <div class="addScore"></div>
                 </div>
-                <div class="trsInits rightmost"></div>
+                <div class="trsRmrks rightmost"></div>
             </div>
+        </div>
+        <div class="scoreKey">
+            <div class="keyHeadings">
+                <div class="leftKey"><b>Identifier</b></div>
+                <div class="midKey"><b>Score range</b></div>
+                <div class="rightKey"><b>Descriptor</b></div>
+            </div>
+            <div class="keyBody">
+                <div class="leftKey">3</div>
+                <div class="midKey">2.5 - 3.0</div>
+                <div class="rightKey"><b>Outstanding:</b> Most or all of Learning Outcomes achieved.</div>
+                <div class="leftKey">2</div>
+                <div class="midKey">1.5 - 2.4</div>
+                <div class="rightKey"><b>Moderate:</b> Many of the Learning Outcomes achieved.</div>
+                <div class="leftKey">1</div>
+                <div class="midKey">0.9 - 1.4</div>
+                <div class="rightKey"><b>Basic:</b> Few Learning Outcomes achieved, generally insufficient.</div>
+            </div>
+        </div>
+        <div class="sva">
+            <div class="svaHeading"><b>Observed Traits, Skills, Values and Attitudes</b></div>
+            <div class="svas"><ul><li>olmkn,</li><li>sfvrejnfss</li><li>sddsf</li><li>ibkufjgk</li><li>sddsf</li><li>edfdc</li></ul></div>
         </div>
         <div class="reportOutros">
             <div class="nxtTerm">
-                Next term begins on: 22nd May, 2023
+                Next term begins on: 16th September, 2023
             </div>
             <div class="classTr">
             </div>
@@ -219,133 +267,55 @@
             <div class="teller"></div>
             <button class="populator" onclick="populate()">Populator</button>
         </div>
-
         <script>
             const ipcRenderer = window.theDataPath.renderer
             const strungArr = ipcRenderer.sendSync('bringArr')
-            const accessStuff = strungArr.split('endOut')
-            const bodyWrdsArrs= []
-            const accessDataA = accessStuff.shift().split('endIn')
-            const accessDataB = []
-            accessStuff.forEach(el=>{
-                accessDataB.push(el.split('endIn'))
+            const allStrData = strungArr.split('endOut')
+            const headWrdsData = allStrData.shift().split('endIn')
+            const bodyWrdsData = []
+            allStrData.forEach(el=>{
+                bodyWrdsData.push(el.split('endIn'))
             })
-            const optsObj = {
-                'Agriculture': ['Poultry production', 'Livestock management practices', 'M.D'],
-                'Entrepreneurship': ['Marketing in business enterprises', 'Money and financial institutions', 'K.D'],
-                'Art': ['Introduction to graphic design', 'Collage and Mosaic', 'K.P'],
-                'ICT': ['Computer hardware', 'Computer software', 'A.D'],
-                'CRE': ['Human dignity and value', 'Marriage in African Traditional Society', 'O.J.L'],
-                'IRE': ['Jahiliyyah', 'Zakat', 'K.S'],
-                'Luganda': ['Games and Sports', "Eby'obulambuzi", 'M.H'],
-                'Literature': ['Heart soothers', 'Oral literature', 'W.JB'],
-            }
+            console.log(headWrdsData)
+            console.log(bodyWrdsData)
             function populate() {
-                for (let i=1; i<accessDataB.length; i++) {
+                for (let i=1; i<bodyWrdsData.length; i++) {
                     const repClone = document.querySelector('.person1').cloneNode(true)
                     document.querySelector('body').appendChild(repClone)
                 }
                 //this code gives names, classes n genders. will also work for old curriculum
                 const reportIntros = ['addName', 'addClass', 'addGender']
                 for (let r=0;r<reportIntros.length;r++) {
-                    for (let i=1; i<=accessDataB.length; i++) {
-                        const scoop = accessDataB[i-1].shift()
+                    for (let i=1; i<=bodyWrdsData.length; i++) {
+                        const scoop = bodyWrdsData[i-1].shift()
                         const theTarget = document.querySelector(`body>div:nth-of-type(${i})`).querySelector(`.${reportIntros[r]}`)
                         theTarget.innerHTML = scoop
                     }
-                    accessDataA.shift()
+                    headWrdsData.shift()
                 }
-                const subjList = [
-                    ['ENGLISH', 'Relative clauses', 'Modern communication technology', 'O.C'],
-                    ['PHYSICS', 'Renewable and non renewable energy', 'Simple machines', 'K.R'],
-                    ['HISTORY', 'Post independence challenges in E.Africa', 'Land tenure system in E.Africa', 'K.N'],
-                    ['GEOGRAPHY', 'Tourism and wildlife', 'Formation of landforms', 'K.E'],
-                    ['BIOLOGY', 'Transport in animals', 'Excretion', 'O.E'],
-                    ['MATHEMATICS', 'Equations of a straight line', 'Trigonometry', 'K.A'],
-                    ['CHEMISTRY', 'The periodic table', 'Acids and bases', 'A.E']//,
-                    //['PHYSICAL EDUCATION', 'Safety and First Aid', 'Body conditioning', 'K.P'] //this does not exist for S.3
-                ]
-                for (let r=1;r<=accessDataB.length;r++) {
-                    const aForSubj = document.querySelector(`body>div:nth-of-type(${r})`).querySelector('.forSubj')
-                    //add data for compulsories
-                    for (let c=0;c<subjList.length;c++){
-                        const rowClone = aForSubj.cloneNode(true)
-                        rowClone.querySelector('.subjName').innerHTML = subjList[c][0]
-                        rowClone.querySelector('.addTopic:nth-of-type(1)').innerHTML = subjList[c][1]
-                        rowClone.querySelector('.addTopic:nth-of-type(2)').innerHTML = subjList[c][2]
-                        rowClone.querySelector('.addComment:nth-of-type(1)').innerHTML = refineScoop(accessDataB[r-1][2*(c+1)-2])
-                        rowClone.querySelector('.addComment:nth-of-type(2)').innerHTML = refineScoop(accessDataB[r-1][2*(c+1)-1])
-                        rowClone.querySelector('.trsInits').innerHTML = subjList[c][3]
+                const subjList = ['ENGLISH', 'PHYSICS', 'HISTORY', 'GEOGRAPHY', 'BIOLOGY', 'MATHEMATICS', 'CHEMISTRY', 'AGRICULTURE', 'ENTREPRENEURSHIP', 'ART', 'I.C.T', 'C.R.E', 'I.R.E', 'LUGANDA', 'LITERATURE', 'KISWAHILI', 'PHYSICAL EDUCATION']
+                //now the real populating. The loop below selects a particular learner
+                for (let r=1;r<=bodyWrdsData.length;r++) {
+                    const voidSubjRow = document.querySelector(`body>div:nth-of-type(${r})`).querySelector('.forSubj')
+                    for (let c=1;c<=subjList.length;c++){
+                        if (bodyWrdsData[r-1][c*2-2]) {
+                            const rowClone = voidSubjRow.cloneNode(true)
+                        rowClone.querySelector('.subjName').innerHTML = subjList[c-1]
+                        rowClone.querySelector('.addTopic:nth-of-type(1)').innerHTML = headWrdsData[c*2-2]
+                        rowClone.querySelector('.addTopic:nth-of-type(2)').innerHTML = headWrdsData[c*2-1]
+                        rowClone.querySelector('.addScore:nth-of-type(1)').innerHTML = bodyWrdsData[r-1][c*2-2]
+                        rowClone.querySelector('.addScore:nth-of-type(2)').innerHTML = bodyWrdsData[r-1][c*2-1]
+                        rowClone.querySelector('.trsRmrks').innerHTML = bodyWrdsData[r-1][c+33] //we have 34 score columns
                         rowClone.style.display = 'block'
                         document.querySelector(`body>div:nth-of-type(${r})`).querySelector('.realReport').appendChild(rowClone) 
-                    }
-                    //Working on optionals
-                    const doneOptionals = []
-                    for (let s=accessDataB[r-1].length-1; s>14;s--) {
-                        if (accessDataB[r-1][s] != '') {
-                            //console.log('take ' + s + ':' + accessDataB[r-1][s], typeof(+accessDataB[r-1][s]))
-                            const rowClone = aForSubj.cloneNode(true)
-                            const sbjctName = accessDataA[s].split('Z')[0]
-                            if (!doneOptionals.includes(sbjctName)) {
-                                rowClone.querySelector('.subjName').innerHTML = sbjctName.toUpperCase()
-                                rowClone.querySelector('.addTopic:nth-of-type(1)').innerHTML = optsObj[sbjctName][0]
-                                rowClone.querySelector('.addTopic:nth-of-type(2)').innerHTML = optsObj[sbjctName][1]
-                                rowClone.querySelector('.addComment:nth-of-type(1)').innerHTML = refineScoop(accessDataB[r-1][s])
-                                rowClone.querySelector('.addComment:nth-of-type(2)').innerHTML = refineScoop(accessDataB[r-1][s-1])
-                                rowClone.querySelector('.trsInits').innerHTML = optsObj[sbjctName][2]
-                                rowClone.style.display = 'block'
-                                document.querySelector(`body>div:nth-of-type(${r})`).querySelector('.realReport').appendChild(rowClone)
-                                doneOptionals.push(sbjctName)
-                            }
-                        } else {
-                            accessDataB[r-1].splice(s,1)
                         }
                     }
-                    //trs comments
-                    let valCounter = 0;
-                    let wholeComment = ''
-                    const firstName = document.querySelector(`body>div:nth-of-type(${r})`).querySelector('.addName').innerHTML.split(' ')[0]
-                    commentNodes = document.querySelector(`body>div:nth-of-type(${r})`).querySelectorAll('.realReport .resultsNow >div') //i didnt let or const this, but it worked
-                    for (let m=0;m<commentNodes.length;m++){
-                        if (commentNodes[m].innerHTML.includes('Basic')) {
-                            valCounter +=1.15
-                        } else if (commentNodes[m].innerHTML.includes('Moderate')) {
-                            valCounter +=1.95
-                        } else if (commentNodes[m].innerHTML.includes('Competent')) {
-                            valCounter +=2.75
-                        } else {
-                            valCounter += 0.8
-                        }
-                    }
-                    if (valCounter<28) {
-                        wholeComment = `${firstName}, you need to pull up your socks. You're advised to keep reviewing the study material throughout the holiday for better understanding.`
-                    } else if (valCounter<35){
-                        wholeComment = `The overall achievement of ${firstName} may be mediocre but inspiration can be drawn from anywhere. ${firstName} should not settle for less but aim for the stars.`
-                    } else if (valCounter<41) {
-                        wholeComment = 'Generally good performance. Keep doing the good grades, although you need to improve in a few areas.'
-                    } else if (valCounter<47) {
-                        wholeComment = 'This is good overall work and when you continue on this trend next term, only the sky will be your limit.'
-                    } else if (valCounter>=47) {
-                        wholeComment = `Bravo, ${firstName}! Your commitment to your studies always pays off and these grades are a reflection. Keep up the spirit.`
-                    }
-                    document.querySelector(`body>div:nth-of-type(${r})`).querySelector('.classTr').innerHTML = '<b>Class teacher\'s comments: </b>' + wholeComment
+                    //observed skills, values n attitudes
+
                 }
-                nwReallyPrint()
+                //nwReallyPrint() Uncomment this to really print
             }
             //later, you can import the currbod from oldcurrtemp
-            function refineScoop(scoop) {
-                if (+scoop == 0){
-                    return 'Learner missed out on assessment for this topic'
-                } else if (+scoop < 1.5) {
-                    return 'Learner has Basic understanding of concepts in this topic'
-                } else if (+scoop < 2.5) {
-                    return 'Learner has Moderate understanding of concepts in this topic'
-                } else if (+scoop <= 3) {
-                    return 'Learner is Competent and has almost full knowledge in this topic'
-                } else {
-                    return 'Learner missed assessment for this topic'
-                }
-            }
             const ev = new MouseEvent("click")
             document.querySelector('.populator').dispatchEvent(ev)
             function nwReallyPrint() {
