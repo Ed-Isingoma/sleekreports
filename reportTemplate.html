@@ -33,6 +33,8 @@
         .schLogo {
             display: block;
             width: 65px;
+            margin-left: 8px;
+            margin-right: 15px;
             float: left;
         }
         .holdTitl {
@@ -74,6 +76,7 @@
         }
         .realReport {
             width: 210mm;
+            font-family: "Arial Narrow";
             text-align: center;
             border: 1px solid rgb(58, 58, 58);
         }
@@ -85,24 +88,27 @@
         }
         .leftmost {
             width: 20%;
-            height: 74px;
+            height: 84px;
             padding-top: 10px;
         }
         .leftmid {
             width: 24%;
-            height: 74px;
+            height: 84px;
         }
         .leftmid > div, .rightmid > div {
             padding-top: 3px;
         }
         .rightmid {
             width: 7%;
-            height: 74px;
+            height: 84px;
         }
         .rightmost {
             /*padding-top: 14px;*/
             width: 49%;
-            height: 74px;
+            height: 84px;
+        }
+        .trsRmrks {
+            text-align: left;
         }
         .noPad {
             padding-top: 0px;
@@ -114,16 +120,16 @@
             float: left;
         }
         .forHeading {
-            max-height: 18px;
-            overflow: hidden;
+            max-height: 21px;
             border: none;
+            overflow:hidden; /*the child divs are the height of the forsubj div*/
         }
         .forHeading > div {
             border: 1px solid rgb(58, 58, 58);
         }
         .addTopic, .addScore {
-            height: 37px;
-            font-size: 16px;
+            height: 42px;
+            font-size: 17px;
             line-height: 17px;
         }
         .forSubj {
@@ -145,9 +151,10 @@
         }
         .leftKey, .midKey {
             width: 20%;
+            float: left;
         }
         .rightKey {
-            width: 59%;
+            width: 60%;
         }
         .sva li {
             width: 49%;
@@ -161,12 +168,16 @@
         }
         .reportOutros {
             text-align: left;
+            margin-top: 10px;
             padding-left: 3px;
+        }
+        .signOut > div {
+            float: left;
         }
         .theSign {
             width: 80px;
-            /*border: 2px solid red;*/
             margin-top: 0;
+            padding-top: 5px;
         }
         .populator {
             display: none;
@@ -174,11 +185,18 @@
         .person1 {
             page-break-after: always;
         }
-        .sigHm {
+        .freeSpace {
             width: 50px;
-            display: inline;
-            margin-top: 2px;
+            height: 14px;
+        }
+        .signHm {
+            width: 50px;
+            display: inline-block;
             vertical-align: bottom;
+            margin-top: 2px;
+        }
+        .hdtrWord {
+            width: 120px;
         }
     </style>
 </head>
@@ -226,7 +244,7 @@
                     <div class="addTopic"></div>
                     <div class="addTopic"></div>
                 </div>
-                <div class="resultsNow rightmid">
+                <div class="scoresNow rightmid">
                     <div class="addScore"></div>
                     <div class="addScore"></div>
                 </div>
@@ -253,7 +271,7 @@
         </div>
         <div class="sva">
             <div class="svaHeading"><b>Observed Traits, Skills, Values and Attitudes</b></div>
-            <div class="svas"><ul><li>olmkn,</li><li>sfvrejnfss</li><li>sddsf</li><li>ibkufjgk</li><li>sddsf</li><li>edfdc</li></ul></div>
+            <div class="svas"><ul></ul></div>
         </div>
         <div class="reportOutros">
             <div class="nxtTerm">
@@ -261,9 +279,13 @@
             </div>
             <div class="classTr">
             </div>
-            <div class="theSign inlineB">
-                Signed:
-            </div><img src="nikSig.png" class="sigHm">
+            <div class="signOut">
+                <div class="theSign">Signed:</div>
+                <div><img src="nikSig.png" class="signHm"></div>
+                <div class="clearFloat"></div>
+                <div class="freeSpace"><br></div>
+                <div class="hdtrWord">HEADTEACHER</div>
+            </div>            
             <div class="teller"></div>
             <button class="populator" onclick="populate()">Populator</button>
         </div>
@@ -293,27 +315,33 @@
                     }
                     headWrdsData.shift()
                 }
-                const subjList = ['ENGLISH', 'PHYSICS', 'HISTORY', 'GEOGRAPHY', 'BIOLOGY', 'MATHEMATICS', 'CHEMISTRY', 'AGRICULTURE', 'ENTREPRENEURSHIP', 'ART', 'I.C.T', 'C.R.E', 'I.R.E', 'LUGANDA', 'LITERATURE', 'KISWAHILI', 'PHYSICAL EDUCATION']
+                const subjList = ['ENGLISH', 'PHYSICS', 'HISTORY', 'GEOGRAPHY', 'BIOLOGY', 'MATHEMATICS', 'CHEMISTRY', 'PHYSICAL EDUCATION', 'AGRICULTURE', 'ENTREPRENEURSHIP', 'ART', 'I.C.T', 'C.R.E', 'I.R.E', 'LUGANDA', 'LITERATURE', 'KISWAHILI']
                 //now the real populating. The loop below selects a particular learner
                 for (let r=1;r<=bodyWrdsData.length;r++) {
                     const voidSubjRow = document.querySelector(`body>div:nth-of-type(${r})`).querySelector('.forSubj')
                     for (let c=1;c<=subjList.length;c++){
                         if (bodyWrdsData[r-1][c*2-2]) {
                             const rowClone = voidSubjRow.cloneNode(true)
-                        rowClone.querySelector('.subjName').innerHTML = subjList[c-1]
-                        rowClone.querySelector('.addTopic:nth-of-type(1)').innerHTML = headWrdsData[c*2-2]
-                        rowClone.querySelector('.addTopic:nth-of-type(2)').innerHTML = headWrdsData[c*2-1]
-                        rowClone.querySelector('.addScore:nth-of-type(1)').innerHTML = bodyWrdsData[r-1][c*2-2]
-                        rowClone.querySelector('.addScore:nth-of-type(2)').innerHTML = bodyWrdsData[r-1][c*2-1]
-                        rowClone.querySelector('.trsRmrks').innerHTML = bodyWrdsData[r-1][c+33] //we have 34 score columns
-                        rowClone.style.display = 'block'
-                        document.querySelector(`body>div:nth-of-type(${r})`).querySelector('.realReport').appendChild(rowClone) 
+                            rowClone.querySelector('.subjName').innerHTML = subjList[c-1]
+                            rowClone.querySelector('.addTopic:nth-of-type(1)').innerHTML = headWrdsData[c*2-2]
+                            rowClone.querySelector('.addTopic:nth-of-type(2)').innerHTML = headWrdsData[c*2-1]
+                            rowClone.querySelector('.addScore:nth-of-type(1)').innerHTML = bodyWrdsData[r-1][c*2-2]
+                            rowClone.querySelector('.addScore:nth-of-type(2)').innerHTML = bodyWrdsData[r-1][c*2-1]
+                            rowClone.querySelector('.trsRmrks').innerHTML = bodyWrdsData[r-1][c+33] //we have 34 score columns
+                            rowClone.style.display = 'block'
+                            document.querySelector(`body>div:nth-of-type(${r})`).querySelector('.realReport').appendChild(rowClone) 
                         }
                     }
                     //observed skills, values n attitudes
-
+                    for(let d=51;d<bodyWrdsData[r-1].length;d++){//51 is the index of the first sva item
+                        if(bodyWrdsData[r-1][d] != 'False' && bodyWrdsData[r-1][d] != '0') {
+                            newSVA = document.createElement('li')
+                            newSVA.innerHTML = headWrdsData[d]
+                            document.querySelector(`body>div:nth-of-type(${r})`).querySelector(`.svas>ul`).appendChild(newSVA)
+                        }
+                    }
                 }
-                //nwReallyPrint() Uncomment this to really print
+                nwReallyPrint() //Uncomment this function to really print
             }
             //later, you can import the currbod from oldcurrtemp
             const ev = new MouseEvent("click")
@@ -327,7 +355,7 @@
                     }
                     ipcRenderer.send('doneLoading', filename)
             }
-            //the UI teller
+            //the UI teller. And it currently isnt showing output
             document.querySelector('.teller').addEventListener('printed', ()=> {
                 document.querySelector('.teller').innerHTML = 'Printed successfully to ' + document.querySelector('.teller').dataset.message
                 document.querySelector('.teller').style.display = 'flex'
