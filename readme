@@ -1,6 +1,9 @@
+***And make sure to always go through these routines
+
+
 For s4s, you go into oldCurricMarks, pick the table of headings, copy it into the new brought file as the first table, copy and paste also the buttons at the bottom of oldCurricMarks. Also make sure there's no <th> element but <td>.
 
-For new curric, make sure there's only two tables in the document. First table is the one of headings. Do this by exporting a ms-access formatted html file (its the one with table headings), and then strip off the "<FONTstyle=FONT-SIZE:11pt FACE='Calibri'COLOR=#000000>" stuff from the whole document using Find & Replace. AND remove the <BR> elements. Then change the thead to a table, because it has the headings. And change the <th> elements to <td>. Make that table the first, so that the rest of the stuff is the second table. Then copy the buttons at the bottom from oldCurricMarks or anywhere else.
+For new curric, make sure there's only two tables in the document. First table is the one of headings. Do this by exporting a ms-access formatted html file (its the one with table headings), and then strip off the "<FONTstyle=FONT-SIZE:11pt FACE='Calibri'COLOR=#000000>" stuff from the whole document using Find & Replace. AND remove the <BR> elements. Then change the thead to a table, because it has the headings. And change the <th> elements to <td>. Make that table the first, so that the rest of the stuff is the second table. Then copy the buttons (and script-src line) at the bottom from oldCurricMarks or anywhere else.
 
 You need to edit the 'End of term 1' and 'Next term begins on' parts
 

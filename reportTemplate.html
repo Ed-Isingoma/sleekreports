@@ -17,7 +17,7 @@
             outline: 3px solid rgb(0, 255, 128);
         }
         .reportPage {
-            height: 330mm;
+            /*height: 330mm;*/
             width: 215mm;
             color: black;
             font-family: "Calibri", serif;
@@ -135,6 +135,9 @@
         .forSubj {
             display: none;
         }
+        /*.brkHere {
+            page-break-after: always;
+        }*/
         .scoreKey, .sva {
             margin-top: 13px;
             width: 210mm;
@@ -170,6 +173,7 @@
             text-align: left;
             margin-top: 10px;
             padding-left: 3px;
+            /*break-after: all;*/
         }
         .signOut > div {
             float: left;
@@ -275,7 +279,7 @@
         </div>
         <div class="reportOutros">
             <div class="nxtTerm">
-                Next term begins on: 16th September, 2023
+                Next term begins on: 10th September, 2023
             </div>
             <div class="classTr">
             </div>
@@ -298,8 +302,8 @@
             allStrData.forEach(el=>{
                 bodyWrdsData.push(el.split('endIn'))
             })
-            console.log(headWrdsData)
-            console.log(bodyWrdsData)
+            //console.log(headWrdsData)
+            //console.log(bodyWrdsData)
             function populate() {
                 for (let i=1; i<bodyWrdsData.length; i++) {
                     const repClone = document.querySelector('.person1').cloneNode(true)
@@ -332,6 +336,10 @@
                             document.querySelector(`body>div:nth-of-type(${r})`).querySelector('.realReport').appendChild(rowClone) 
                         }
                     }
+                    //document.querySelector(`body>div:nth-of-type(${r}) .realReport .forSubj:nth-of-type(10)`).classList.add('brkHere')
+                    //console.log(document.querySelector(`body>div:nth-of-type(${r}) .brkHere`)) 
+                    //document.querySelector(`body>div:nth-of-type(${r}) .reportOutros`).classList.add('brkHere')
+                    //page-break-after anywhere else has refused, so this up is commented
                     //observed skills, values n attitudes
                     for(let d=51;d<bodyWrdsData[r-1].length;d++){//51 is the index of the first sva item
                         if(bodyWrdsData[r-1][d] != 'False' && bodyWrdsData[r-1][d] != '0') {
