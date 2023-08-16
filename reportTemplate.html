@@ -20,14 +20,14 @@
             /*height: 330mm;*/
             width: 215mm;
             color: black;
-            font-family: "Calibri", serif;
+            font-family: "Candara", serif;
             font-size: 17px;
             text-align: center;
         }
         .header {
             font-weight: bolder;
-            width: 190mm;
-            max-height: 2.5cm;
+            width: 215mm;
+            max-height: 2.7cm;
             display: inline-block;
         }
         .schLogo {
@@ -39,6 +39,7 @@
         }
         .holdTitl {
             float: left;
+            line-height: 130%;
         }
         .firstLine {
             font-size: 24px;
@@ -51,7 +52,8 @@
         }
         .reportIntros, .reportOutros {
             font-weight: bold;
-            width: 190mm;
+            font-size: 19px;
+            width: 205mm;
             display: inline-block;
         }
         #notif {
@@ -74,44 +76,41 @@
             width: 15%;
             text-align: left;
         }
-        .realReport {
+        .realReport, .realReport2 {
             width: 210mm;
             font-family: "Arial Narrow";
             text-align: center;
             border: 1px solid rgb(58, 58, 58);
         }
-        .realReport >div, .addTopic, .addScore, .leftmost, .rightmost {
+        .realReport >div, .realReport2>div, .addTopic, .addScore, .leftmost, .rightmost {
             border: 1px solid rgb(58, 58, 58);
+        }
+        .realReport2 {
+            margin-top: 35px;
+            page-break-before: always;
         }
         #origRow {
             border: none;
         }
         .leftmost {
             width: 20%;
-            height: 84px;
-            padding-top: 10px;
+        }
+        .leftmost, .rightmost, .addScore, .addTopic {
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
         .leftmid {
             width: 24%;
-            height: 84px;
-        }
-        .leftmid > div, .rightmid > div {
-            padding-top: 3px;
         }
         .rightmid {
             width: 7%;
-            height: 84px;
         }
         .rightmost {
-            /*padding-top: 14px;*/
             width: 49%;
-            height: 84px;
         }
         .trsRmrks {
             text-align: left;
-        }
-        .noPad {
-            padding-top: 0px;
         }
         .clearFloat {
             clear: both;
@@ -122,22 +121,17 @@
         .forHeading {
             max-height: 21px;
             border: none;
-            overflow:hidden; /*the child divs are the height of the forsubj div*/
         }
-        .forHeading > div {
+        .forHeading .leftmid, .forHeading .rightmid {
             border: 1px solid rgb(58, 58, 58);
         }
         .addTopic, .addScore {
-            height: 42px;
             font-size: 17px;
             line-height: 17px;
         }
         .forSubj {
             display: none;
         }
-        /*.brkHere {
-            page-break-after: always;
-        }*/
         .scoreKey, .sva {
             margin-top: 13px;
             width: 210mm;
@@ -173,7 +167,9 @@
             text-align: left;
             margin-top: 10px;
             padding-left: 3px;
-            /*break-after: all;*/
+        }
+        .reportIntros, .reportOutros {
+            line-height: 130%;
         }
         .signOut > div {
             float: left;
@@ -200,7 +196,7 @@
             margin-top: 2px;
         }
         .hdtrWord {
-            width: 120px;
+            width: 200px;
         }
     </style>
 </head>
@@ -236,23 +232,22 @@
         </div>
         <div class="realReport inlineB">
             <div class="forHeading">
-                <div class="leftmost noPad">SUBJECT</div>
+                <div class="leftmost">SUBJECT</div>
                 <div class="leftmid">TOPIC</div>
                 <div class="rightmid">SCORE</div>
-                <div class="rightmost noPad">TEACHER'S REMARKS</div>
+                <div class="rightmost">TEACHER'S REMARKS</div>
                 <div class="clearFloat"></div>
             </div>
             <div class="forSubj" id="origRow">
                 <div class="subjName leftmost"></div>
                 <div class="subjTopics leftmid">
-                    <div class="addTopic"></div>
-                    <div class="addTopic"></div>
+                    
                 </div>
                 <div class="scoresNow rightmid">
-                    <div class="addScore"></div>
-                    <div class="addScore"></div>
+                    
                 </div>
                 <div class="trsRmrks rightmost"></div>
+                <div class="clearFloat"></div>
             </div>
         </div>
         <div class="scoreKey">
@@ -281,8 +276,6 @@
             <div class="nxtTerm">
                 Next term begins on: 10th September, 2023
             </div>
-            <div class="classTr">
-            </div>
             <div class="signOut">
                 <div class="theSign">Signed:</div>
                 <div><img src="nikSig.png" class="signHm"></div>
@@ -293,83 +286,174 @@
             <div class="teller"></div>
             <button class="populator" onclick="populate()">Populator</button>
         </div>
-        <script>
-            const ipcRenderer = window.theDataPath.renderer
-            const strungArr = ipcRenderer.sendSync('bringArr')
-            const allStrData = strungArr.split('endOut')
-            const headWrdsData = allStrData.shift().split('endIn')
-            const bodyWrdsData = []
-            allStrData.forEach(el=>{
-                bodyWrdsData.push(el.split('endIn'))
-            })
-            //console.log(headWrdsData)
-            //console.log(bodyWrdsData)
-            function populate() {
-                for (let i=1; i<bodyWrdsData.length; i++) {
-                    const repClone = document.querySelector('.person1').cloneNode(true)
-                    document.querySelector('body').appendChild(repClone)
-                }
-                //this code gives names, classes n genders. will also work for old curriculum
-                const reportIntros = ['addName', 'addClass', 'addGender']
-                for (let r=0;r<reportIntros.length;r++) {
-                    for (let i=1; i<=bodyWrdsData.length; i++) {
-                        const scoop = bodyWrdsData[i-1].shift()
-                        const theTarget = document.querySelector(`body>div:nth-of-type(${i})`).querySelector(`.${reportIntros[r]}`)
-                        theTarget.innerHTML = scoop
-                    }
-                    headWrdsData.shift()
-                }
-                const subjList = ['ENGLISH', 'PHYSICS', 'HISTORY', 'GEOGRAPHY', 'BIOLOGY', 'MATHEMATICS', 'CHEMISTRY', 'PHYSICAL EDUCATION', 'AGRICULTURE', 'ENTREPRENEURSHIP', 'ART', 'I.C.T', 'C.R.E', 'I.R.E', 'LUGANDA', 'LITERATURE', 'KISWAHILI']
-                //now the real populating. The loop below selects a particular learner
-                for (let r=1;r<=bodyWrdsData.length;r++) {
-                    const voidSubjRow = document.querySelector(`body>div:nth-of-type(${r})`).querySelector('.forSubj')
-                    for (let c=1;c<=subjList.length;c++){
-                        if (bodyWrdsData[r-1][c*2-2]) {
-                            const rowClone = voidSubjRow.cloneNode(true)
-                            rowClone.querySelector('.subjName').innerHTML = subjList[c-1]
-                            rowClone.querySelector('.addTopic:nth-of-type(1)').innerHTML = headWrdsData[c*2-2]
-                            rowClone.querySelector('.addTopic:nth-of-type(2)').innerHTML = headWrdsData[c*2-1]
-                            rowClone.querySelector('.addScore:nth-of-type(1)').innerHTML = bodyWrdsData[r-1][c*2-2]
-                            rowClone.querySelector('.addScore:nth-of-type(2)').innerHTML = bodyWrdsData[r-1][c*2-1]
-                            rowClone.querySelector('.trsRmrks').innerHTML = bodyWrdsData[r-1][c+33] //we have 34 score columns
-                            rowClone.style.display = 'block'
-                            document.querySelector(`body>div:nth-of-type(${r})`).querySelector('.realReport').appendChild(rowClone) 
-                        }
-                    }
-                    //document.querySelector(`body>div:nth-of-type(${r}) .realReport .forSubj:nth-of-type(10)`).classList.add('brkHere')
-                    //console.log(document.querySelector(`body>div:nth-of-type(${r}) .brkHere`)) 
-                    //document.querySelector(`body>div:nth-of-type(${r}) .reportOutros`).classList.add('brkHere')
-                    //page-break-after anywhere else has refused, so this up is commented
-                    //observed skills, values n attitudes
-                    for(let d=51;d<bodyWrdsData[r-1].length;d++){//51 is the index of the first sva item
-                        if(bodyWrdsData[r-1][d] != 'False' && bodyWrdsData[r-1][d] != '0') {
-                            newSVA = document.createElement('li')
-                            newSVA.innerHTML = headWrdsData[d]
-                            document.querySelector(`body>div:nth-of-type(${r})`).querySelector(`.svas>ul`).appendChild(newSVA)
-                        }
-                    }
-                }
-                nwReallyPrint() //Uncomment this function to really print
-            }
-            //later, you can import the currbod from oldcurrtemp
-            const ev = new MouseEvent("click")
-            document.querySelector('.populator').dispatchEvent(ev)
-            function nwReallyPrint() {
-                const dateArr = Date().toString().split(' ')
-                    dateArr.splice(-4, 4)
-                    let filename = ''
-                    for (let i=0; i<dateArr.length;i++) {
-                        filename+=dateArr[i]
-                    }
-                    ipcRenderer.send('doneLoading', filename)
-            }
-            //the UI teller. And it currently isnt showing output
-            document.querySelector('.teller').addEventListener('printed', ()=> {
-                document.querySelector('.teller').innerHTML = 'Printed successfully to ' + document.querySelector('.teller').dataset.message
-                document.querySelector('.teller').style.display = 'flex'
-                setTimeout(()=> {document.querySelector('.teller').style.display = 'none'}, 3000)
-            })
-        </script>
     </div>
+    <script>    //THIS IS WHERE THE SCRIPT BEGINS   
+        const ipcRenderer = window.theDataPath.renderer
+        const strungArr = ipcRenderer.sendSync('bringArr')
+        const allStrData = strungArr.split('endOut')
+        const bodyWrdsData = []
+        allStrData.forEach(el=>{
+            bodyWrdsData.push(el.split('endIn'))
+        })
+        //console.log(bodyWrdsData)
+        const subjsList = ['ENGLISH', 'PHYSICS', 'HISTORY', 'GEOGRAPHY', 'BIOLOGY', 'MATHEMATICS', 'CHEMISTRY', 'PHYSICAL EDUCATION', 'AGRICULTURE', 'ENTREPRENEURSHIP', 'ART', 'ICT', 'CRE', 'IRE', 'LUGANDA', 'LITERATURE', 'KISWAHILI']
+        const topicsArrs = [['engtop1', 'engtop2','engtop3','engtop4'], 
+        ['phytopp1', 'phytopp2', 'phytopp3', 'phytopp4'], 
+        ['histtop1', 'histopp2', 'hoisnn'], 
+        ['geogtoppp3', 'geogtop4', 'ihogdnn'], 
+        ['bioltoppp5','bioltope6'], 
+        ['mtctoppppp6', 'jsdfkjbd', 'lokmolkm lol'], 
+        ['chemtopp7'], 
+        ['pedtopp8', 'sdgsd'], 
+        ['agrninth', 'agrtenth'], 
+        ['ent11', 'entcomm'],
+        ['snfkjvr', 'sdvvsgdg', 'yntrbrb'],
+        ['dhybybf', 'untrvesv', 'wettbs'], 
+        ['hbytdsew'], 
+        [' hbtrer', 'ybtdsctv', 'brthgvve', 'btfourth comm']]
+        const svaArr = ['Mathematical Computation', 'Communication', 'Creativity', 'Commitment', 'Critical Thinking', 'Cooperation', 'Self-directed learning','Problem solving', 'ICT proficiency', 'Logical thinking', 'Leadership', 'Empathy', 'Kindness', 'Sharing', 'Unnecessarily talkative', 'Generally stubborn', 'Often sleepy during class', 'Helpful', 'Disrupts normal order during class', 'Tends to be inactive']
+        const commentsObj = {
+            'ENGLISH': ['one', 'two','three', 'four', 'five'],
+            'PHYSICS': ['one', 'two','three', 'four', 'five'],
+            'ENTREPRENEURSHIP': ['one', 'two','three', 'four', 'five'],
+            'LITERATURE': ['one', 'two','three', 'four', 'five'],
+            'GEOGRAPHY': ['one', 'two','three', 'four', 'five'],
+            'CHEMISTRY': ['one', 'two','three', 'four', 'five'],
+            'MATHEMATICS': ['one', 'two','three', 'four', 'five'],
+            'BIOLOGY': ['one', 'two','three', 'four', 'five'],
+            'HISTORY': ['one', 'two','three', 'four', 'five'],
+            'ICT': ['one', 'two','three', 'four', 'five'],
+            'CRE': ['one', 'two','three', 'four', 'five'],
+            'LUGANDA': ['one', 'two','three', 'four', 'five'],
+            'KISWAHILI': ['one', 'two','three', 'four', 'five'],
+            'IRE': ['one', 'two','three', 'four', 'five'],
+            'PHYSICAL EDUCATION': ['one', 'two','three', 'four', 'five'],
+            'ART': ['one', 'two','three', 'four', 'five'],
+            'AGRICULTURE': ['one', 'two','three', 'four', 'five'],
+        }
+        function populate() {
+            for (let i=1; i<bodyWrdsData.length; i++) {
+                const repClone = document.querySelector('.person1').cloneNode(true)
+                document.querySelector('body').appendChild(repClone)
+            }
+            //this code gives names, classes n genders (and shifts them from the array). will also work for old curriculum
+            const reportIntros = ['addName', 'addClass', 'addGender']
+            for (let r=0;r<reportIntros.length;r++) {
+                for (let i=1; i<=bodyWrdsData.length; i++) {
+                    const scoop = bodyWrdsData[i-1].shift()
+                    const theTarget = document.querySelector(`body>div:nth-of-type(${i})`).querySelector(`.${reportIntros[r]}`)
+                    theTarget.innerHTML = scoop
+                }
+            }
+            //now the real populating. The loop below selects a particular learner
+            for (let r=1;r<=bodyWrdsData.length;r++) {
+                const voidSubjRow = document.querySelector(`body>div:nth-of-type(${r})`).querySelector('.forSubj')
+                //the second realReport table
+                const newTabl = document.createElement('div')
+                newTabl.className = 'realReport2'
+                newTabl.appendChild(document.querySelector(`body>div:nth-of-type(${r}) .forHeading`).cloneNode(true))
+                //working on a single subject
+                let pageToll = 0
+                for (let b=0;b<topicsArrs.length;b++) {
+                    const rowClone = voidSubjRow.cloneNode(true)
+                    rowClone.querySelector('.subjName').innerHTML = subjsList[b]
+                    let whetherWeAppend = false
+                    let rowToll = 0
+                    for (let dee=0;dee<topicsArrs[b].length;dee++){
+                        if (topicsArrs[b][dee] && bodyWrdsData[r-1][4*b+dee]) {
+                            const topicDiv = document.createElement('div')
+                            topicDiv.classList.add('addTopic')
+                            topicDiv.innerHTML = topicsArrs[b][dee]
+                            rowClone.querySelector('.leftmid').appendChild(topicDiv)
+                            const scoreDiv = document.createElement('div')
+                            scoreDiv.classList.add('addScore')
+                            scoreDiv.innerHTML = Math.round(+bodyWrdsData[r-1][4*b+dee],3)
+                            rowClone.querySelector('.rightmid').appendChild(scoreDiv)
+                            rowToll +=1
+                            whetherWeAppend = true  
+                        }
+                    }    
+                    if (whetherWeAppend) {
+                        //determining the div heights
+                        if (rowToll == 1) {
+                            rowClone.querySelector('.leftmost').style.height = '84px'
+                            rowClone.querySelector('.rightmost').style.height = '84px'
+                            rowClone.querySelector('.addTopic').style.height = '84px'
+                            rowClone.querySelector('.addScore').style.height = '84px'
+                            pageToll +=2
+                        } else {
+                            rowClone.querySelector('.leftmost').style.height = `${rowToll*42}px`
+                            rowClone.querySelector('.rightmost').style.height = `${rowToll*42}px`
+                            rowClone.querySelectorAll('.addTopic').forEach(el=>el.style.height = '42px')
+                            rowClone.querySelectorAll('.addScore').forEach(el=>el.style.height = '42px')
+                            pageToll += rowToll
+                        }
+                        rowClone.querySelector(`.trsRmrks`).innerHTML = calcRmrks(rowClone.querySelectorAll('.addScore'), subjsList[b])
+                        rowClone.style.display = 'block'
+                        let destinatnTab = document.querySelector(`body>div:nth-of-type(${r})`).querySelector('.realReport')
+                        if (pageToll>=24) {
+                            destinatnTab = document.querySelector(`body>div:nth-of-type(${r}) .realReport`).insertAdjacentElement("afterend", newTabl)
+                        }
+                        destinatnTab.appendChild(rowClone) 
+                    }
+                }
+                //removing the first forSubj which is empty
+                voidSubjRow.remove()
+                //observed skills, values n attitudes
+                for(let d=68;d<bodyWrdsData[r-1].length;d++){//68 is the index of the first sva item. 4X17. This changes if the num of subjects changes
+                    if(bodyWrdsData[r-1][d] == 1) {
+                        const newSVA = document.createElement('li')
+                        newSVA.innerHTML = svaArr[d-68]
+                        document.querySelector(`body>div:nth-of-type(${r})`).querySelector(`.svas>ul`).appendChild(newSVA)
+                    }
+                }
+            }
+            nwReallyPrint() //Uncomment this function to really print
+        }
+        function calcRmrks (nodelis, subj) {
+            let scores = []
+            nodelis.forEach(el => {
+                if (el.innerHTML) {
+                    scores.push(el.innerHTML)
+                }
+            })
+            let avg = 0
+            for (let i=0;i<scores.length;i++) {
+                avg += +scores[i]
+            }
+            avg = avg/scores.length
+            let trsComm = ''
+            if (avg < 1.3) {
+                trsComm = commentsObj[subj][0]
+            } else if (avg < 1.75) {
+                trsComm = commentsObj[subj][1]
+            } else if (avg < 2.2) {
+                trsComm = commentsObj[subj][2]
+            } else if (avg < 2.65) {
+                trsComm = commentsObj[subj][3]
+            } else if (avg > 2.65) {
+                trsComm = commentsObj[subj][4]
+            }
+            return trsComm
+        }
+        //later, you can import the currbod from oldcurrtemp
+        const ev = new MouseEvent("click")
+        document.querySelector('.populator').dispatchEvent(ev)
+        function nwReallyPrint() {
+            const dateArr = Date().toString().split(' ')
+                dateArr.splice(-4, 4)
+                let filename = ''
+                for (let i=0; i<dateArr.length;i++) {
+                    filename+=dateArr[i]
+                }
+                ipcRenderer.send('doneLoading', filename)
+        }
+        //the UI teller. And it currently isnt showing output
+        document.querySelector('.teller').addEventListener('printed', ()=> {
+            document.querySelector('.teller').innerHTML = 'Printed successfully to ' + document.querySelector('.teller').dataset.message
+            document.querySelector('.teller').style.display = 'flex'
+            setTimeout(()=> {document.querySelector('.teller').style.display = 'none'}, 3000)
+        })
+        </script>
 </body>
 </html>

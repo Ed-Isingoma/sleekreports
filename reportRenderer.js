@@ -3,11 +3,7 @@ const fs = window.theDataPath.fs
 const dataPath = ipcRenderer.sendSync('bringLink', '')
 
 function printeryBe() {//for the new curriculum
-    const headWrds = document.querySelectorAll('table:nth-of-type(1) td') //> tbody>tr>
-    const headWrdsArr = [] //contains each of the divs going to printery
-    headWrds.forEach(e=> {headWrdsArr.push(e.innerHTML)})
-    //console.log(headWrdsArr)
-    const bodyWrds = document.querySelectorAll('table:nth-of-type(2) tr')//>tbody>
+    const bodyWrds = document.querySelectorAll('table:nth-of-type(1) tr')//>tbody>
     const bodyWrdsArrs = []
     for (let i=0; i<bodyWrds.length; i++) {
         const tempNode = bodyWrds[i].querySelectorAll('td')
@@ -15,7 +11,6 @@ function printeryBe() {//for the new curriculum
         tempNode.forEach(e=>{tempArr.push(e.innerHTML)})
         bodyWrdsArrs.push(tempArr)
     }
-    bodyWrdsArrs.unshift(headWrdsArr)
     let freshArr = []
     for (let i=0;i<bodyWrdsArrs.length;i++) {
         freshArr.push(bodyWrdsArrs[i].join('endIn')) //but do we need to join 'endIn' when there's square brackets which are unique?
@@ -39,7 +34,6 @@ function printeryBe2() {//for the old curriculum
         const tempNode = bodyWrds[i].querySelectorAll('td')
         const tempArr = []
         tempNode.forEach(e=>{tempArr.push(e.innerHTML.replace('<font style="FONT-SIZE:11pt" face="Calibri" color="#000000">', '').replace('</font>', ''))})
-        //tempArr.shift()
         bodyWrdsArrs.push(tempArr)
     }
     bodyWrdsArrs.unshift(newHeadWrds)
