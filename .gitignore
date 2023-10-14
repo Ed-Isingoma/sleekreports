@@ -1,9 +1,12 @@
+.DS_Store
 dist/
 node_modules/
 build/
 yarn.lock
 yarn-error.log
 iconstrash.png
-PRM.docx
-logo*
+logoProgie.jpg
 nikSig.png
+NCDC-Sample Term Three Report Card-2022.pdf
+thumbs.db
+.idea/

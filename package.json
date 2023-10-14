@@ -1,25 +1,25 @@
 {
-  "name": "prm",
-  "version": "1.0.1",
-  "description": "A digital platform for recording and storing police records.",
+  "name": "sleekreports",
+  "version": "1.0.0",
+  "description": "Template for making NLSC report cards",
   "main": "reportMain.js",
   "keywords": [],
-  "homepage": "https://github.com/Ed-Isingoma/prm",
+  "homepage": "https://github.com/Ed-Isingoma/sleekreports",
   "author": "Ntonde Edgar Isingoma <eddiisingoma@gmail.com>",
-  "license": "ISC",
+  "license": "MIT",
   "scripts": {
     "start": "electron .",
     "pack": "electron-builder --dir",
     "dist": "electron-builder"
   },
   "devDependencies": {
-    "electron": "^18.3.1",
+    "electron": "^27.0.0",
     "electron-builder": "^23.0.3"
   },
   "build": {
     "target": "nsis, deb",
-    "appId": "com.electron.prm",
-    "copyright": "Copyright (c) 2022 Ntonde Edgar Isingoma.",
+    "appId": "com.electron.sleekreports",
+    "copyright": "Copyright (c) 2023 Ntonde Edgar Isingoma.",
     "win": {
       "target": "nsis"
     },
@@ -27,5 +27,6 @@
       "target": "deb",
       "maintainer": "Edgar Isingoma"
     }
-  }
+  },
+  "repository": "https://github.com/Ed-Isingoma/sleekreports.git"
 }

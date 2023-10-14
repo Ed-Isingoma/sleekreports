@@ -3,9 +3,6 @@ const fs = require('fs')
 const path = require('path')
 const thePath = app.getPath('userData')
 
-ipcMain.on('bringLink', (ee, argu)=> {//this shall be removed
-    ee.returnValue = thePath
-})
 //initialising main browserWindow
 let mainWin;
 function createWindow() {
@@ -14,7 +11,8 @@ function createWindow() {
         height: 700,
         backgroundColor: 'rgb(185, 184, 255)',
         webPreferences: {
-            preload: path.join(app.getAppPath(), 'reportPreload.js')
+            preload: path.join(app.getAppPath(), 'reportPreload.js'),
+            contextIsolation: true
         }
     })
     //mainWin.removeMenu()
@@ -38,6 +36,7 @@ ipcMain.on('printThis', (e, theArr)=> {
         show: true,
         webPreferences: {
             preload: path.join(app.getAppPath(), 'reportPreload.js'),
+            contextIsolation: true
         }
     })
     printWin.maximize()
@@ -51,6 +50,7 @@ ipcMain.on('printThese', (e, theArr)=> {
         show: true,
         webPreferences: {
             preload: path.join(app.getAppPath(), 'reportPreload.js'),
+            contextIsolation: true
         }
     })
     printWin.maximize()
