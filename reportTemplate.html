@@ -76,17 +76,17 @@
             width: 15%;
             text-align: left;
         }
-        .realReport, .realReport2 {
+        .realReport, .realReport2, .eoycover {
             width: 210mm;
             font-family: "Arial Narrow";
             text-align: center;
             border: 1px solid rgb(58, 58, 58);
         }
-        .realReport >div, .realReport2>div, .addTopic, .addScore, .leftmost, .rightmost {
+        .realReport >div, .realReport2>div, .addTopic, .addScore, .leftmost, .rightmost, .longeoy, .shorteoy, .eoyheaderrow, .eoycoverHeading {
             border: 1px solid rgb(58, 58, 58);
         }
         .realReport2 {
-            margin-top: 35px;
+            margin-top: 25px;
             page-break-before: always;
         }
         #origRow {
@@ -96,7 +96,7 @@
             width: 20%;
         }
         .leftmost, .rightmost, .addScore, .addTopic {
-            display: flex;
+            display: flex; /*why is this here then you tell it to float after?*/
             justify-content: center;
             align-items: center;
         }
@@ -168,7 +168,7 @@
             margin-top: 10px;
             padding-left: 3px;
         }
-        .reportIntros, .reportOutros {
+        .reportIntros, .reportOutros, .eoycover {
             line-height: 130%;
         }
         .signOut > div {
@@ -197,6 +197,19 @@
         }
         .hdtrWord {
             width: 200px;
+        }
+        .eoycoverHeading, .eoyheaderrow, .eoybodyrow {
+            width: 100%;/*Probably we make their width a particular px number if this doesnt work*/
+        }
+        .eoyheaderrow, .eoybodyrow {
+            display: flex;
+            flex-direction: row;
+        }
+        .longeoy {
+            width: 26%;
+        }
+        .shorteoy {
+            width: 18.5%;
         }
     </style>
 </head>
@@ -332,6 +345,47 @@
             'AGRICULTURE': ['one', 'two','three', 'four', 'five'],
         }
         function populate() {
+            const eoycover = document.createElement('div')
+            eoycover.className = 'eoycover'
+            const eoycoverHeading = document.createElement('div')
+            eoycoverHeading.className = 'eoycoverHeading'
+            eoycoverHeading.innerHTML = 'END OF YEAR ASSESSMENT'
+            eoycover.appendChild(eoycoverHeading)
+            const eoyheaderrow = document.createElement('div')
+            eoyheaderrow.className = 'eoyheaderrow'
+            const eoybodyrow = document.createElement('div')
+            eoybodyrow.className = 'eoybodyrow'
+            const longeoy = document.createElement('div')
+            longeoy.className = 'longeoy'
+            const shorteoy = document.createElement('div')
+            shorteoy.className = 'shorteoy'
+
+            eoyheaderrow.appendChild(longeoy)
+            eoybodyrow.appendChild(longeoy)
+            for (let i=0; i<4; i++) {
+                eoyheaderrow.appendChild(shorteoy)
+                eoybodyrow.appendChild(shorteoy)
+            }
+            const eoyheaderrowData = ['SUBJECT', 'Formative Score\n(makes up 20%)', 'End Of Year Exam Score\n(makes up 80%)', 'Total Score', 'Grade']
+            //verify whether \n means the same here as in python
+            function calcGrade(mark) {
+                const rangeMin = [0,30,40,50,60,70,80,90]
+                const theGrades = ['G','F','E','D','C','B','A','A+']
+                for (let i=rangeMin.length-1;i>=0;i--) {
+                    if (mark>=rangeMin[i]) return theGrades[i]
+                }
+                return 'G' //just in case, to prevent an error
+            }
+            for (let i=0; i<eoyheaderrowData.length;i++) {
+                [...eoyheaderrow.querySelectorAll()][i].innerHTML = eoyheaderrowData[i]
+            }
+            eoycover.appendChild(eoyheaderrow)
+
+            //clone eoycover and eoybodyrow, add information into divs and then append eoybodyrow to eoycover (clones) on the fly
+            // for (let i=0; i<subjsArr.length;i++) {
+            //     //add information to eoybodyrow
+            //     eoycover
+            // }
             for (let i=1; i<bodyWrdsData.length; i++) {
                 const repClone = document.querySelector('.person1').cloneNode(true)
                 document.querySelector('body').appendChild(repClone)
@@ -397,10 +451,28 @@
                         destinatnTab.appendChild(rowClone) 
                     }
                 }
+                //the end of year marks table
+                let itsThirdTerm = true
+                if (itsThirdTerm) {
+                    const studentsEoy = eoycover.cloneNode(true)
+
+                    for (let p=89;p<105;p++) {//89 to 105 (instead of to bodyWrdsData[r-1].length). That is the range of subjects with EOY marks
+                        if (bodyWrdsData[r-1][p]) {
+                            const totalAOIs = +bodyWrdsData[r-1][p+17]
+                            const eoyMrks = +bodyWrdsData[r-1][p]
+                            const studentsEoyrow = eoybodyrow.cloneNode(true)
+                            const intoEoybodyrow = [subjsList[p-89], totalAOIs, eoyMrks, totalAOIs+eoyMrks, calcGrade(totalAOIs+eoyMrks)]
+                            const eoyBodyrowDivs = [...studentsEoyrow.querySelectorAll()] 
+                            eoyBodyrowDivs.forEach((e)=> {e.innerHTML = intoEoybodyrow[eoyBodyrowDivs.indexOf(e)]})
+                            studentsEoy.appendChild(studentsEoyrow)
+                        }
+                    }
+                    document.querySelector(`body>div:nth-of-type(${r})`).querySelector('.realReport').after(studentsEoy)
+                }
                 //removing the first forSubj which is empty
                 voidSubjRow.remove()
                 //observed skills, values n attitudes
-                for(let d=68;d<bodyWrdsData[r-1].length;d++){//68 is the index of the first sva item. 4X17. This changes if the num of subjects changes
+                for(let d=68;d<=88;d++){//68 is the index of the first sva item. 4X17. This changes if the num of subjects changes. 88 is the index of the 21st sva item
                     if(bodyWrdsData[r-1][d] == 1) {
                         const newSVA = document.createElement('li')
                         newSVA.innerHTML = svaArr[d-68]

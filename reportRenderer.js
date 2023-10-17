@@ -1,6 +1,4 @@
 const ipcRenderer = window.theDataPath.renderer
-const fs = window.theDataPath.fs
-const dataPath = ipcRenderer.sendSync('bringLink', '')
 
 function printeryBe() {//for the new curriculum
     const bodyWrds = document.querySelectorAll('table:nth-of-type(1) tr')//>tbody>

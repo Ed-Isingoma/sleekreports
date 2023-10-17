@@ -1,5 +1,4 @@
 const {ipcRenderer, contextBridge} = require('electron')
-const fs = require('fs')
 
 ipcRenderer.on('clicked', (e, message)=> {
     const details = message.split(' ')
@@ -44,6 +43,5 @@ ipcRenderer.on('printPath', (e, link)=> {
 })
 
 contextBridge.exposeInMainWorld('theDataPath', {
-    renderer: ipcRenderer,
-    fs: fs
+    renderer: ipcRenderer
 })
