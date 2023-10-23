@@ -1,7 +1,7 @@
 const { app, BrowserWindow, ipcMain, Menu} = require('electron')
-const fs = require('fs')
+// const fs = require('fs')
 const path = require('path')
-const thePath = app.getPath('userData')
+// const thePath = app.getPath('userData')
 
 //initialising main browserWindow
 let mainWin;
@@ -27,35 +27,35 @@ app.on('activate', ()=> {
 ipcMain.on('quit', ()=> {app.quit()})
 //concerning the second browserwindow
 let transitArr;
-let printWin;
+//let printWin;
 ipcMain.on('printThis', (e, theArr)=> {
     transitArr = theArr;
-    printWin = new BrowserWindow({
-        width: 800,
-        height: 600,
-        show: true,
-        webPreferences: {
-            preload: path.join(app.getAppPath(), 'reportPreload.js'),
-            contextIsolation: true
-        }
-    })
-    printWin.maximize()
-    printWin.loadFile('./reportTemplate.html')
+    // printWin = new BrowserWindow({
+    //     width: 800,
+    //     height: 600,
+    //     show: true,
+    //     webPreferences: {
+    //         preload: path.join(app.getAppPath(), 'reportPreload.js'),
+    //         contextIsolation: true
+    //     }
+    // })
+    // printWin.maximize()
+    // printWin.loadFile('./reportTemplate.html')
 })
-ipcMain.on('printThese', (e, theArr)=> {
-    transitArr = theArr;
-    printWin = new BrowserWindow({
-        width: 800,
-        height: 600,
-        show: true,
-        webPreferences: {
-            preload: path.join(app.getAppPath(), 'reportPreload.js'),
-            contextIsolation: true
-        }
-    })
-    printWin.maximize()
-    printWin.loadFile('./oldCurrTempl.html')
-})
+// ipcMain.on('printThese', (e, theArr)=> {
+//     transitArr = theArr;
+//     printWin = new BrowserWindow({
+//         width: 800,
+//         height: 600,
+//         show: true,
+//         webPreferences: {
+//             preload: path.join(app.getAppPath(), 'reportPreload.js'),
+//             contextIsolation: true
+//         }
+//     })
+//     printWin.maximize()
+//     printWin.loadFile('./oldCurrTempl.html')
+// })
 ipcMain.on('doneLoading', (e, filename)=> {
     printWin.webContents.printToPDF({
         printBackground: true,
@@ -68,6 +68,13 @@ ipcMain.on('doneLoading', (e, filename)=> {
     }).then(()=> {//printWin.close()
     }).catch(err =>e.sender.send('printInfo', err))
 })
-ipcMain.on('bringArr', (e, arg)=> {
-    e.returnValue = transitArr
-}) 
+ipcMain.on('bringArr', (e)=> {
+    if (transitArr) {
+        e.returnValue = transitArr
+    } else {
+        e.returnValue = false
+    }
+})
+ipcMain.on('resetStoredArr', ()=>{
+    transitArr = false
+})
