@@ -51,7 +51,9 @@ if (strungArr) {//if we're working with reportTemplate
 function populate() {
     //setting up divs for eoy assessment results
     let itsThirdTerm = true
-    const eoycover = document.createElement('div') //declared in wider scope because someone else needs him
+    //these are declared in wider scope because someone else needs them
+    const eoycover = document.createElement('div') 
+    const eoybodyrow = document.createElement('div')
     if (itsThirdTerm) {
         eoycover.className = 'eoycover'
         const eoycoverHeading = document.createElement('div')
@@ -60,7 +62,6 @@ function populate() {
         eoycover.appendChild(eoycoverHeading.cloneNode(true))
         const eoyheaderrow = document.createElement('div')
         eoyheaderrow.className = 'eoyheaderrow'
-        const eoybodyrow = document.createElement('div')
         eoybodyrow.className = 'eoybodyrow'
         const longeoy = document.createElement('div')
         longeoy.className = 'longeoy'
@@ -156,7 +157,6 @@ function populate() {
         //the end of year marks table
         if (itsThirdTerm) {
             const studentsEoy = eoycover.cloneNode(true)
-
             for (let p = 89; p < 105; p++) {//89 to 105 (instead of to bodyWrdsData[r-1].length). That is the range of subjects with EOY marks
                 if (bodyWrdsData[r - 1][p]) {
                     const totalAOIs = +bodyWrdsData[r - 1][p + 17]
@@ -165,6 +165,7 @@ function populate() {
                     const intoEoybodyrow = [subjsList[p - 89], totalAOIs, eoyMrks, totalAOIs + eoyMrks, calcGrade(totalAOIs + eoyMrks)]
                     const eoyBodyrowDivs = [...studentsEoyrow.querySelectorAll('div')]
                     eoyBodyrowDivs.forEach((e) => { e.innerHTML = intoEoybodyrow[eoyBodyrowDivs.indexOf(e)] })
+                    //console.log(studentsEoyrow)
                     studentsEoy.appendChild(studentsEoyrow)
                 }
             }

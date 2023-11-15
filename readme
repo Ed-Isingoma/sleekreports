@@ -1,6 +1,6 @@
 ***ROUTINE***
 
-Import an access file without formatting, sothat the table has no header. We dont need the header. the document only needs to have one table. then remove the "<FONTstyle=FONT-SIZE:11pt" stuff using Find & Replace. AND remove the <BR> elements. Then copy the buttons (and script-src line) at the bottom from oldCurricMarks or anywhere else. No more need for the old curric printery button. Then copy also the link rel=stylesheet at the top of the document.
+Import an access file without formatting, sothat the table has no header (and the svas have 1s n 0s instead of True-False). We dont need the header. the document only needs to have one table. then remove the "<FONTstyle=FONT-SIZE:11pt" stuff using Find & Replace. AND remove the <BR> elements. Then copy the buttons (and script-src line) at the bottom from oldCurricMarks or anywhere else. No more need for the old curric printery button. Then copy also the link rel=stylesheet at the top of the document.
 
 Edit the 'End of term 1' and 'Next term begins on' parts
 

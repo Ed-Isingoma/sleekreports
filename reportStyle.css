@@ -67,18 +67,27 @@ button, .header, .section, .footer {
     width: 15%;
     text-align: left;
 }
-.realReport, .realReport2, .eoycover {
+.realReport, .realReport2 {
     width: 210mm;
     font-family: "Arial Narrow";
     text-align: center;
     border: 1px solid rgb(58, 58, 58);
 }
-.realReport >div, .realReport2>div, .addTopic, .addScore, .leftmost, .rightmost, .longeoy, .shorteoy, .eoyheaderrow, .eoycoverHeading {
+.eoycover {
+    width: 210mm;
+    font-family: "Arial Narrow";
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+.realReport >div, .realReport2>div, .addTopic, .addScore, .leftmost, .rightmost, .longeoy, .shorteoy {
     border: 1px solid rgb(58, 58, 58);
 }
 .realReport2 {
     margin-top: 25px;
     page-break-before: always;
+    margin-left: auto;
+    margin-right: auto;
 }
 #origRow {
     border: none;
@@ -127,8 +136,14 @@ button, .header, .section, .footer {
     margin-top: 13px;
     width: 210mm;
 }
-.keyHeadings, .forHeading, .svaHeading {
+.keyHeadings, .forHeading, .svaHeading, .eoyheaderrow {
     background-color: rgb(131, 131, 131);
+}
+.longeoy {
+    font-weight: bold;
+}
+.shorteoy:nth-child(5), .eoycoverHeading {
+    font-weight: bolder;
 }
 .svaHeading, .svas {
     width: 100%;
@@ -201,4 +216,8 @@ button, .header, .section, .footer {
 }
 .shorteoy {
     width: 18.5%;
+}
+ul {
+    padding-left: 2.5px;
+    padding-right: 2.5px;
 }
