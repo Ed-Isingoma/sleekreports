@@ -8,48 +8,197 @@ button, .header, .section, .footer {
 *:focus {
     outline: 3px solid rgb(0, 255, 128);
 }
-.goingBody, .entryBody {
-    background-color: rgb(185, 184, 255);
-}
-.welcome {
-    animation-name: fadeWelc;
-    animation-duration: 450ms;
+.reportPage {
+    width: 215mm;
+    color: black;
+    font-family: "Candara", serif;
+    font-size: 17px;
     text-align: center;
-    color: blue;
-    font-size: 50px;
-    font-family: serif;
+}
+.header {
+    font-weight: bolder;
+    width: 215mm;
+    max-height: 2.7cm;
+    display: inline-block;
+}
+.schLogo {
+    display: block;
+    width: 65px;
+    margin-left: 8px;
+    margin-right: 15px;
+    float: left;
+}
+.holdTitl {
+    float: left;
+    line-height: 130%;
+}
+.firstLine {
+    font-size: 24px;
+}
+.blackLine {
+    height: 3px;
+    width: 100%;
+    margin-bottom: 2px;
+    border-top: 3px solid black;
+}
+.reportIntros, .reportOutros {
     font-weight: bold;
-    margin-top: 250px;
+    font-size: 19px;
+    width: 205mm;
+    display: inline-block;
 }
-.exit {
-    padding: 8px;
-    width: 9%;
-    margin-top: 4px;
-    font-family: serif;
-    font-weight: bold;
-    background-color: rgb(157, 156, 250);
-    font-size: 18px;
-    border-color: rgb(157, 156, 250);
+#notif {
+    text-align: left;
+    font-style: italic;
 }
-.exit:hover, .exit:focus {
-    background-color: rgb(97, 96, 146);
-    border-color: rgb(97, 96, 146);
-    color: white;
+.inlineB {
+    display: inline-block;
 }
-.exitWord {
-    font-family: serif;
+.addName {
+    width: 83%;
+    text-align: left;
+}
+.addClass, .addGender {
+    width: 34%;
+    height: 15px;
+    text-align: left;
+}
+.theirName, .theirClass, .gender {
+    width: 15%;
+    text-align: left;
+}
+.realReport, .realReport2, .eoycover {
+    width: 210mm;
+    font-family: "Arial Narrow";
     text-align: center;
-    margin-top: 250px;
-    color: blue;
+    border: 1px solid rgb(58, 58, 58);
 }
-.teller {
+.realReport >div, .realReport2>div, .addTopic, .addScore, .leftmost, .rightmost, .longeoy, .shorteoy, .eoyheaderrow, .eoycoverHeading {
+    border: 1px solid rgb(58, 58, 58);
+}
+.realReport2 {
+    margin-top: 25px;
+    page-break-before: always;
+}
+#origRow {
+    border: none;
+}
+.leftmost {
+    width: 20%;
+}
+.leftmost, .rightmost, .addScore, .addTopic {
+    display: flex; /*why is this here then you tell it to float after?*/
+    justify-content: center;
+    align-items: center;
+}
+.leftmid {
+    width: 24%;
+}
+.rightmid {
+    width: 7%;
+}
+.rightmost {
+    width: 49%;
+}
+.trsRmrks {
+    text-align: left;
+}
+.clearFloat {
+    clear: both;
+}
+.leftmost, .leftmid, .rightmid, .rightmost {
+    float: left;
+}
+.forHeading {
+    max-height: 21px;
+    border: none;
+}
+.forHeading .leftmid, .forHeading .rightmid {
+    border: 1px solid rgb(58, 58, 58);
+}
+.addTopic, .addScore {
+    font-size: 17px;
+    line-height: 17px;
+}
+.forSubj {
     display: none;
-    background-color: rgba(222, 184, 135, 0.8);
-    font-family: 'Lucida Sans', Verdana, sans-serif;
-    padding: 7px;
-    top: 50%;
-    left: 200px;
-    font-size: 18px;
-    position: fixed;
-    z-index: 1;
+}
+.scoreKey, .sva, .eoycover {
+    margin-top: 13px;
+    width: 210mm;
+}
+.keyHeadings, .forHeading, .svaHeading {
+    background-color: rgb(131, 131, 131);
+}
+.svaHeading, .svas {
+    width: 100%;
+}
+.scoreKey, .scoreKey > div > div, .sva, .sva > div {
+    display: inline-block;
+    border: 1px solid rgb(58, 58, 58);
+}
+.leftKey, .midKey {
+    width: 20%;
+    float: left;
+}
+.rightKey {
+    width: 60%;
+}
+.sva li {
+    width: 49%;
+    display: inline-block;
+}
+.sva li:nth-child(3n-1){
+    background-color: rgb(196, 196, 196);
+}
+.sva li:nth-child(3n){
+    background-color: rgb(157, 157, 157);
+}
+.reportOutros {
+    text-align: left;
+    margin-top: 10px;
+    padding-left: 3px;
+}
+.reportIntros, .reportOutros, .eoycover {
+    line-height: 130%;
+}
+.signOut > div {
+    float: left;
+}
+.theSign {
+    width: 80px;
+    margin-top: 0;
+    padding-top: 5px;
+}
+.populator {
+    display: none;
+}
+.person1 {
+    page-break-after: always;
+}
+.freeSpace {
+    width: 50px;
+    height: 14px;
+}
+.signHm {
+    width: 50px;
+    display: inline-block;
+    vertical-align: bottom;
+    margin-top: 2px;
+}
+.hdtrWord {
+    width: 200px;
+}
+.eoycoverHeading, .eoyheaderrow, .eoybodyrow {
+    width: 100%;/*Probably we make their width a particular px number if this doesnt work*/
+}
+.eoyheaderrow, .eoybodyrow {
+    display: flex;
+    flex-direction: row;
+}
+.longeoy {
+    width: 26%;
+}
+.shorteoy {
+    width: 18.5%;
 }

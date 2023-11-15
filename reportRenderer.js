@@ -1,50 +1,9 @@
 const ipcRenderer = window.theDataPath.renderer
 
-function printeryBe() {//for the new curriculum
-    const bodyWrds = document.querySelectorAll('table:nth-of-type(1) tr')//>tbody>
-    const bodyWrdsArrs = []
-    for (let i = 0; i < bodyWrds.length; i++) {
-        const tempNode = bodyWrds[i].querySelectorAll('td')
-        const tempArr = []
-        tempNode.forEach(e => { tempArr.push(e.innerHTML) })
-        bodyWrdsArrs.push(tempArr)
-    }
-    let freshArr = []
-    for (let i = 0; i < bodyWrdsArrs.length; i++) {
-        freshArr.push(bodyWrdsArrs[i].join('endIn')) //but do we need to join 'endIn' when there's square brackets which are unique?
-    }
-    const newDataSet = freshArr.join('endOut')
-    ipcRenderer.send('printThis', newDataSet)
-    //console.log('newData', newDataSet)
-    const toTempl = document.createElement('a')
-    toTempl.href = 'reportTemplate.html'
-    toTempl.dispatchEvent(new MouseEvent('click'))
-}
-function exitWork() {
-    const theA = document.createElement('a')
-    theA.href = "logoff.html"
-    const ev = new MouseEvent('click')
-    theA.dispatchEvent(ev)
-}
-function goBack() {
-    const theA = document.createElement('a')
-    theA.href = "testResults.html"
-    ipcRenderer.send('resetStoredArr')
-    theA.dispatchEvent(new MouseEvent('click'))
-}
-
 const strungArr = ipcRenderer.sendSync('bringArr')
 const bodyWrdsData = []
 let allStrData;
-if (strungArr) {//if we're working with reportTemplate
-    allStrData = strungArr.split('endOut')
-    allStrData.forEach(el => {
-        bodyWrdsData.push(el.split('endIn'))
-    })
-    document.querySelector('.populator').dispatchEvent(new MouseEvent("click"))
-}
-console.log('bodyWrdsData', bodyWrdsData)
-
+//console.log('bodyWrdsData', bodyWrdsData)
 const subjsList = ['ENGLISH', 'PHYSICS', 'HISTORY', 'GEOGRAPHY', 'BIOLOGY', 'MATHEMATICS', 'CHEMISTRY', 'PHYSICAL EDUCATION', 'AGRICULTURE', 'ENTREPRENEURSHIP', 'ART', 'ICT', 'CRE', 'IRE', 'LUGANDA', 'LITERATURE', 'KISWAHILI']
 const topicsArrs = [
     ['engtop1', 'engtop2', 'engtop3', 'engtop4'],
@@ -82,48 +41,53 @@ const commentsObj = {
     'ART': ['one', 'two', 'three', 'four', 'five'],
     'AGRICULTURE': ['one', 'two', 'three', 'four', 'five'],
 }
+if (strungArr) {//if we're working with reportTemplate
+    allStrData = strungArr.split('endOut')
+    allStrData.forEach(el => {
+        bodyWrdsData.push(el.split('endIn'))
+    })
+    document.querySelector('.populator').dispatchEvent(new MouseEvent("click"))
+}
 function populate() {
-    const eoycover = document.createElement('div')
-    eoycover.className = 'eoycover'
-    const eoycoverHeading = document.createElement('div')
-    eoycoverHeading.className = 'eoycoverHeading'
-    eoycoverHeading.innerHTML = 'END OF YEAR ASSESSMENT'
-    eoycover.appendChild(eoycoverHeading)
-    const eoyheaderrow = document.createElement('div')
-    eoyheaderrow.className = 'eoyheaderrow'
-    const eoybodyrow = document.createElement('div')
-    eoybodyrow.className = 'eoybodyrow'
-    const longeoy = document.createElement('div')
-    longeoy.className = 'longeoy'
-    const shorteoy = document.createElement('div')
-    shorteoy.className = 'shorteoy'
-
-    eoyheaderrow.appendChild(longeoy)
-    eoybodyrow.appendChild(longeoy)
-    for (let i = 0; i < 4; i++) {
-        eoyheaderrow.appendChild(shorteoy)
-        eoybodyrow.appendChild(shorteoy)
-    }
-    const eoyheaderrowData = ['SUBJECT', 'Formative Score\n(makes up 20%)', 'End Of Year Exam Score\n(makes up 80%)', 'Total Score', 'Grade']
-    //verify whether \n means the same here as in python
-    function calcGrade(mark) {
-        const rangeMin = [0, 30, 40, 50, 60, 70, 80, 90]
-        const theGrades = ['G', 'F', 'E', 'D', 'C', 'B', 'A', 'A+']
-        for (let i = rangeMin.length - 1; i >= 0; i--) {
-            if (mark >= rangeMin[i]) return theGrades[i]
+    //setting up divs for eoy assessment results
+    let itsThirdTerm = true
+    const eoycover = document.createElement('div') //declared in wider scope because someone else needs him
+    if (itsThirdTerm) {
+        eoycover.className = 'eoycover'
+        const eoycoverHeading = document.createElement('div')
+        eoycoverHeading.className = 'eoycoverHeading'
+        eoycoverHeading.innerHTML = 'END OF YEAR ASSESSMENT'
+        eoycover.appendChild(eoycoverHeading.cloneNode(true))
+        const eoyheaderrow = document.createElement('div')
+        eoyheaderrow.className = 'eoyheaderrow'
+        const eoybodyrow = document.createElement('div')
+        eoybodyrow.className = 'eoybodyrow'
+        const longeoy = document.createElement('div')
+        longeoy.className = 'longeoy'
+        const shorteoy = document.createElement('div')
+        shorteoy.className = 'shorteoy'
+        
+        eoyheaderrow.appendChild(longeoy.cloneNode(true))
+        eoybodyrow.appendChild(longeoy.cloneNode(true))
+        for (let i = 0; i < 4; i++) {
+            eoyheaderrow.appendChild(shorteoy.cloneNode(true))
+            eoybodyrow.appendChild(shorteoy.cloneNode(true))
         }
-        return 'G' //just in case, to prevent an error
+        const eoyheaderrowData = ['SUBJECT', 'Formative Score\n(makes up 20%)', 'End Of Year Exam Score\n(makes up 80%)', 'Total Score', 'Grade']
+        function calcGrade(mark) {
+            const rangeMin = [0, 30, 40, 50, 60, 70, 80, 90]
+            const theGrades = ['G', 'F', 'E', 'D', 'C', 'B', 'A', 'A+']
+            for (let i = rangeMin.length - 1; i >= 0; i--) {
+                if (mark >= rangeMin[i]) return theGrades[i]
+            }
+            return 'G' //just in case, to prevent an error
+        }
+        const eoyheaderrowSlctr = [...eoyheaderrow.querySelectorAll('div')]
+        for (let i = 0; i < eoyheaderrowData.length; i++) {
+            eoyheaderrowSlctr[i].innerHTML = eoyheaderrowData[i]
+        }
+        eoycover.appendChild(eoyheaderrow.cloneNode(true))   
     }
-    for (let i = 0; i < eoyheaderrowData.length; i++) {
-        [...eoyheaderrow.querySelectorAll()][i].innerHTML = eoyheaderrowData[i]
-    }
-    eoycover.appendChild(eoyheaderrow)
-
-    //clone eoycover and eoybodyrow, add information into divs and then append eoybodyrow to eoycover (clones) on the fly
-    // for (let i=0; i<subjsArr.length;i++) {
-    //     //add information to eoybodyrow
-    //     eoycover
-    // }
     for (let i = 1; i < bodyWrdsData.length; i++) {
         const repClone = document.querySelector('.person1').cloneNode(true)
         document.querySelector('body').appendChild(repClone)
@@ -132,7 +96,7 @@ function populate() {
     const reportIntros = ['addName', 'addClass', 'addGender']
     for (let r = 0; r < reportIntros.length; r++) {
         for (let i = 1; i <= bodyWrdsData.length; i++) {
-            const scoop = bodyWrdsData[i - 1].shift()
+            const scoop = bodyWrdsData[i-1].shift()
             const theTarget = document.querySelector(`body>div:nth-of-type(${i})`).querySelector(`.${reportIntros[r]}`)
             theTarget.innerHTML = scoop
         }
@@ -190,7 +154,6 @@ function populate() {
             }
         }
         //the end of year marks table
-        let itsThirdTerm = true
         if (itsThirdTerm) {
             const studentsEoy = eoycover.cloneNode(true)
 
@@ -200,12 +163,12 @@ function populate() {
                     const eoyMrks = +bodyWrdsData[r - 1][p]
                     const studentsEoyrow = eoybodyrow.cloneNode(true)
                     const intoEoybodyrow = [subjsList[p - 89], totalAOIs, eoyMrks, totalAOIs + eoyMrks, calcGrade(totalAOIs + eoyMrks)]
-                    const eoyBodyrowDivs = [...studentsEoyrow.querySelectorAll()]
+                    const eoyBodyrowDivs = [...studentsEoyrow.querySelectorAll('div')]
                     eoyBodyrowDivs.forEach((e) => { e.innerHTML = intoEoybodyrow[eoyBodyrowDivs.indexOf(e)] })
                     studentsEoy.appendChild(studentsEoyrow)
                 }
             }
-            document.querySelector(`body>div:nth-of-type(${r})`).querySelector('.realReport').after(studentsEoy)
+            document.querySelector(`body>div:nth-of-type(${r})`).querySelector('.sva').before(studentsEoy)
         }
         //removing the first forSubj which is empty
         voidSubjRow.remove()
@@ -263,3 +226,9 @@ document.querySelector('.teller').addEventListener('printed', () => {
     document.querySelector('.teller').style.display = 'flex'
     setTimeout(() => { document.querySelector('.teller').style.display = 'none' }, 3000)
 })
+function goBack() {
+    const theA = document.createElement('a')
+    theA.href = "get results.html" 
+    ipcRenderer.send('resetStoredArr')
+    theA.dispatchEvent(new MouseEvent('click'))
+}

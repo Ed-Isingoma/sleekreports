@@ -1,11 +1,8 @@
-***And make sure to always go through these routines
+***ROUTINE***
 
+Import an access file without formatting, sothat the table has no header. We dont need the header. the document only needs to have one table. then remove the "<FONTstyle=FONT-SIZE:11pt" stuff using Find & Replace. AND remove the <BR> elements. Then copy the buttons (and script-src line) at the bottom from oldCurricMarks or anywhere else. No more need for the old curric printery button. Then copy also the link rel=stylesheet at the top of the document.
 
-For s4s, you go into oldCurricMarks, pick the table of headings, copy it into the new brought file as the first table, copy and paste also the buttons at the bottom of oldCurricMarks. Also make sure there's no <th> element but <td>.
-
-For new curric, make sure there's only two tables in the document. First table is the one of headings. Do this by exporting a ms-access formatted html file (its the one with table headings), and then strip off the "<FONTstyle=FONT-SIZE:11pt FACE='Calibri'COLOR=#000000>" stuff from the whole document using Find & Replace. AND remove the <BR> elements. Then change the thead to a table, because it has the headings. And change the <th> elements to <td>. Make that table the first, so that the rest of the stuff is the second table. Then copy the buttons (and script-src line) at the bottom from oldCurricMarks or anywhere else. No more need for the old curric printery button. Then copy also the link rel=stylesheet at the top of the document.
-
-You need to edit the 'End of term 1' and 'Next term begins on' parts
+Edit the 'End of term 1' and 'Next term begins on' parts
 
 Make sure the order of columns (subject names) as previously done is respected.
 

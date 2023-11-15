@@ -1,5 +1,6 @@
 const { app, BrowserWindow, ipcMain, Menu} = require('electron')
 const path = require('path')
+const fs = require('fs')
 
 //initialising main browserWindow
 let mainWin;
@@ -29,14 +30,15 @@ ipcMain.on('printThis', (e, theArr)=> {
     transitArr = theArr;
 })
 ipcMain.on('doneLoading', (e, filename)=> {
-    printWin.webContents.printToPDF({
+    mainWin.webContents.printToPDF({
         printBackground: true,
         pageSize: 'A4',
         landscape: false
     }).then(data => {
         fs.appendFileSync(path.join(app.getPath('documents'), filename + '.pdf'), data)
-        mainWin.webContents.send('printPath', path.join(app.getPath('documents'), filename + '.pdf'))
-        e.sender.send('printInfo', 'Finished writeFileSync')
+        //we shall to review this part
+        //mainWin.webContents.send('printPath', path.join(app.getPath('documents'), filename + '.pdf'))
+        //e.sender.send('printInfo', 'Finished writeFileSync')
     }).then(()=> {//printWin.close()
     }).catch(err =>e.sender.send('printInfo', err))
 })
